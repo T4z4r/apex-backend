@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PropertyController;
 use App\Http\Controllers\API\UnitController;
 use App\Http\Controllers\API\LeaseController;
+use App\Http\Controllers\API\MaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('leases/{unit_id}/request', [LeaseController::class, 'requestLease']);
     Route::get('leases/{id}', [LeaseController::class, 'show']);
     Route::post('leases/{id}/sign', [LeaseController::class, 'sign']);
+
+
+    Route::get('maintenance', [MaintenanceController::class,'index']);
+    Route::post('maintenance', [MaintenanceController::class,'store']);
+    Route::patch('maintenance/{id}', [MaintenanceController::class,'update']);
 });
 
 

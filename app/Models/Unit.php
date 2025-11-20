@@ -21,4 +21,10 @@ class Unit extends Model
     {
         return $this->hasMany(Lease::class);
     }
+
+
+    public function maintenanceRequests()
+    {
+        return $this->hasMany(MaintenanceRequest::class);
+    }
 }
