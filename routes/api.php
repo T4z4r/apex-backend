@@ -9,6 +9,8 @@ use App\Http\Controllers\API\LeaseController;
 use App\Http\Controllers\API\MaintenanceController;
 use App\Http\Controllers\API\AgentController;
 use App\Http\Controllers\API\DisputeController;
+use App\Http\Controllers\API\ConversationController;
+use App\Http\Controllers\API\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,21 +39,30 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('leases/{id}/sign', [LeaseController::class, 'sign']);
 
 
-    Route::get('maintenance', [MaintenanceController::class,'index']);
-    Route::post('maintenance', [MaintenanceController::class,'store']);
-    Route::patch('maintenance/{id}', [MaintenanceController::class,'update']);
+    Route::get('maintenance', [MaintenanceController::class, 'index']);
+    Route::post('maintenance', [MaintenanceController::class, 'store']);
+    Route::patch('maintenance/{id}', [MaintenanceController::class, 'update']);
 
 
-        // Agents
-    Route::post('agents', [AgentController::class,'store']);
-    Route::get('agents', [AgentController::class,'index']);
-    Route::post('agents/{id}/verify', [AgentController::class,'verify']); // Admin only
+    // Agents
+    Route::post('agents', [AgentController::class, 'store']);
+    Route::get('agents', [AgentController::class, 'index']);
+    Route::post('agents/{id}/verify', [AgentController::class, 'verify']); // Admin only
 
     // Disputes
-    Route::post('disputes', [DisputeController::class,'store']); // Tenant/Landlord
-    Route::get('disputes', [DisputeController::class,'index']); // Admin only
-    Route::patch('disputes/{id}', [DisputeController::class,'update']); // Admin only
+    Route::post('disputes', [DisputeController::class, 'store']); // Tenant/Landlord
+    Route::get('disputes', [DisputeController::class, 'index']); // Admin only
+    Route::patch('disputes/{id}', [DisputeController::class, 'update']); // Admin only
 
+
+
+    // Conversations
+    Route::get('conversations', [ConversationController::class, 'index']);
+    Route::post('conversations', [ConversationController::class, 'store']);
+
+    // Messages
+    Route::get('conversations/{id}/messages', [MessageController::class, 'index']);
+    Route::post('conversations/{id}/messages', [MessageController::class, 'store']);
 });
 
 
