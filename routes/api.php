@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('leases/{unit_id}/request', [LeaseController::class, 'requestLease']);
     Route::get('leases/{id}', [LeaseController::class, 'show']);
     Route::post('leases/{id}/sign', [LeaseController::class, 'sign']);
+    Route::post('leases/{id}/generate-pdf', [LeaseController::class,'generatePdf']);
 
 
     Route::get('maintenance', [MaintenanceController::class, 'index']);

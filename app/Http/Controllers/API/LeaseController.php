@@ -76,15 +76,18 @@ class LeaseController extends Controller
         }
 
         $validated = $request->validate([
-            'lease_pdf_url' => 'required|url' // pre-generated PDF URL
+            'signature_type' => 'required|in:typed,image',
+            'signature' => 'required|string' // typed name or base64 image URL
         ]);
 
-        $lease->lease_pdf_url = $validated['lease_pdf_url'];
+        // Optionally overlay image signature onto PDF (advanced)
+        // For MVP, we store typed name
+        $lease->tenant_signature = $validated['signature'];
         $lease->status = 'active';
-        $lease->signed_at = Carbon::now();
+        $lease->signed_at = now();
         $lease->save();
 
-        // Optionally, mark unit as unavailable
+        // Mark unit as unavailable
         $lease->unit->is_available = false;
         $lease->unit->save();
 
@@ -92,23 +95,23 @@ class LeaseController extends Controller
     }
 
 
+
     public function generatePdf($leaseId)
-{
-    $lease = Lease::with('tenant','landlord','unit.property')->findOrFail($leaseId);
+    {
+        $lease = Lease::with('tenant', 'landlord', 'unit.property')->findOrFail($leaseId);
 
-    // Ensure only tenant/landlord/admin can generate
-    if (!in_array(Auth::id(), [$lease->tenant_id, $lease->landlord_id]) && Auth::user()->role !== 'admin') {
-        return response()->json(['message' => 'Unauthorized'], 403);
+        // Ensure only tenant/landlord/admin can generate
+        if (!in_array(Auth::id(), [$lease->tenant_id, $lease->landlord_id]) && Auth::user()->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $pdf = Pdf::loadView('leases.template', compact('lease'));
+        $fileName = 'leases/lease_' . $lease->id . '_' . time() . '.pdf';
+        Storage::disk('public')->put($fileName, $pdf->output());
+
+        $lease->lease_pdf_url = Storage::url($fileName);
+        $lease->save();
+
+        return response()->json(['lease_pdf_url' => $lease->lease_pdf_url], 200);
     }
-
-    $pdf = Pdf::loadView('leases.template', compact('lease'));
-    $fileName = 'leases/lease_'.$lease->id.'_'.time().'.pdf';
-    Storage::disk('public')->put($fileName, $pdf->output());
-
-    $lease->lease_pdf_url = Storage::url($fileName);
-    $lease->save();
-
-    return response()->json(['lease_pdf_url' => $lease->lease_pdf_url], 200);
-}
-
 }
