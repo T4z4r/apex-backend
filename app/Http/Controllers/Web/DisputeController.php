@@ -3,63 +3,91 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dispute;
+use App\Models\Lease;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DisputeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $disputes = Dispute::with('lease.unit.property','lease.tenant','lease.landlord')->get();
+        } elseif ($user->hasRole('tenant') || $user->hasRole('landlord')) {
+            $disputes = Dispute::where('raised_by', $user->id)->with('lease.unit.property','lease.tenant','lease.landlord')->get();
+        } else {
+            $disputes = Dispute::with('lease.unit.property','lease.tenant','lease.landlord')->get();
+        }
+        return view('disputes.index', compact('disputes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $leases = Lease::where('tenant_id', auth()->id())->with('unit.property')->get();
+        return view('disputes.create', compact('leases'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'lease_id' => 'required|exists:leases,id',
+            'issue' => 'required|string|max:1000',
+            'evidence.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120'
+        ]);
+
+        $lease = Lease::findOrFail($data['lease_id']);
+        if (!in_array(auth()->id(), [$lease->tenant_id, $lease->landlord_id])) {
+            abort(403);
+        }
+
+        $evidence = [];
+        if ($request->hasFile('evidence')) {
+            foreach ($request->file('evidence') as $f) {
+                $path = $f->store('disputes', 'public');
+                $evidence[] = Storage::url($path);
+            }
+        }
+
+        $dispute = Dispute::create([
+            'lease_id' => $data['lease_id'],
+            'raised_by' => auth()->id(),
+            'issue' => $data['issue'],
+            'evidence' => $evidence ? json_encode($evidence) : null,
+            'status' => 'open'
+        ]);
+
+        return redirect()->route('disputes.index')->with('success', 'Dispute submitted.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Dispute $dispute)
     {
-        //
+        if (!auth()->user()->hasRole('admin')) abort(403);
+        return view('disputes.edit', compact('dispute'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Dispute $dispute)
     {
-        //
+        if (!auth()->user()->hasRole('admin')) abort(403);
+
+        $data = $request->validate([
+            'status' => 'required|in:open,in_review,resolved,rejected',
+            'admin_resolution_notes' => 'nullable|string'
+        ]);
+
+        $dispute->status = $data['status'];
+        $dispute->admin_resolution_notes = $data['admin_resolution_notes'] ?? $dispute->admin_resolution_notes;
+        $dispute->save();
+
+        return redirect()->route('disputes.index')->with('success', 'Dispute updated.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Dispute $dispute)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (!in_array(auth()->id(), [$dispute->raised_by]) && !auth()->user()->hasRole('admin')) abort(403);
+        $dispute->delete();
+        return redirect()->route('disputes.index')->with('success', 'Dispute deleted.');
     }
 }

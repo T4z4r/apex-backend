@@ -2,7 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\PropertyController;
+use App\Http\Controllers\Web\UnitController;
+use App\Http\Controllers\Web\LeaseController;
+use App\Http\Controllers\Web\MaintenanceController;
+use App\Http\Controllers\Web\DisputeController;
+use App\Http\Controllers\Web\UserController;
+use App\Http\Controllers\Web\AgentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +25,41 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::post('leases/{lease}/sign', [App\Http\Controllers\Web\LeaseController::class, 'sign'])->name('leases.sign');
+    Route::get('leases/{lease}/generate-pdf', [App\Http\Controllers\Web\LeaseController::class, 'generatePdf'])->name('leases.generate-pdf');
+    Route::post('agents/{agent}/verify', [App\Http\Controllers\Web\AgentController::class, 'verify'])->name('agents.verify');
+
+
+    Route::middleware(['role:admin|landlord|agent'])->group(function(){
+Route::resource('properties', PropertyController::class);
+Route::resource('units', UnitController::class);
+Route::resource('leases', LeaseController::class);
 });
 
-require __DIR__.'/auth.php';
+
+Route::middleware(['role:admin|landlord|tenant'])->group(function(){
+Route::resource('maintenance', MaintenanceController::class);
+});
+
+
+Route::middleware(['role:admin'])->group(function(){
+Route::resource('disputes', DisputeController::class);
+Route::resource('users', UserController::class);
+Route::resource('agents', AgentController::class);
+});
+});
+
+require __DIR__ . '/auth.php';
