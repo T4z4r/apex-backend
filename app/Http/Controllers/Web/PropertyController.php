@@ -2,64 +2,49 @@
 
 namespace App\Http\Controllers\Web;
 
+
 use App\Http\Controllers\Controller;
+use App\Models\Property;
 use Illuminate\Http\Request;
+
 
 class PropertyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('properties.index', ['properties' => Property::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('properties.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(Request $r)
     {
-        //
+        Property::create($r->validate(['name' => 'required', 'location' => 'required']));
+        return back()->with('success', 'Property added');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function edit(Property $property)
     {
-        //
+        return view('properties.edit', compact('property'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function update(Request $r, Property $property)
     {
-        //
+        $property->update($r->validate(['name' => 'required', 'location' => 'required']));
+        return back()->with('success', 'Property updated');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return back()->with('success', 'Deleted');
     }
 }

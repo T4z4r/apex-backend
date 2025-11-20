@@ -3,63 +3,71 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Unit;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $units = Unit::with('property')->get();
+        return view('units.index', compact('units'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $properties = Property::all();
+        return view('units.create', compact('properties'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'unit_label' => 'required|string|max:255',
+            'bedrooms' => 'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
+            'size_m2' => 'nullable|numeric',
+            'rent_amount' => 'required|numeric|min:0',
+            'deposit_amount' => 'nullable|numeric|min:0',
+            'is_available' => 'nullable|boolean',
+        ]);
+
+        $data['is_available'] = $request->has('is_available') ? (bool)$request->input('is_available') : true;
+        Unit::create($data);
+
+        return redirect()->route('units.index')->with('success', 'Unit created.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Unit $unit)
     {
-        //
+        $properties = Property::all();
+        return view('units.edit', compact('unit', 'properties'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Unit $unit)
     {
-        //
+        $data = $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'unit_label' => 'required|string|max:255',
+            'bedrooms' => 'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
+            'size_m2' => 'nullable|numeric',
+            'rent_amount' => 'required|numeric|min:0',
+            'deposit_amount' => 'nullable|numeric|min:0',
+            'is_available' => 'nullable|boolean',
+        ]);
+
+        $data['is_available'] = $request->has('is_available') ? (bool)$request->input('is_available') : $unit->is_available;
+        $unit->update($data);
+
+        return redirect()->route('units.index')->with('success', 'Unit updated.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Unit $unit)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $unit->delete();
+        return redirect()->route('units.index')->with('success', 'Unit deleted.');
     }
 }
