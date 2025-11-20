@@ -8,6 +8,9 @@ use App\Models\Lease;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+
 
 class LeaseController extends Controller
 {
@@ -87,4 +90,25 @@ class LeaseController extends Controller
 
         return response()->json($lease, 200);
     }
+
+
+    public function generatePdf($leaseId)
+{
+    $lease = Lease::with('tenant','landlord','unit.property')->findOrFail($leaseId);
+
+    // Ensure only tenant/landlord/admin can generate
+    if (!in_array(Auth::id(), [$lease->tenant_id, $lease->landlord_id]) && Auth::user()->role !== 'admin') {
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
+
+    $pdf = Pdf::loadView('leases.template', compact('lease'));
+    $fileName = 'leases/lease_'.$lease->id.'_'.time().'.pdf';
+    Storage::disk('public')->put($fileName, $pdf->output());
+
+    $lease->lease_pdf_url = Storage::url($fileName);
+    $lease->save();
+
+    return response()->json(['lease_pdf_url' => $lease->lease_pdf_url], 200);
+}
+
 }
