@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Dispute;
+use App\Models\User;
 use App\Models\Lease;
+use App\Models\Dispute;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DisputeController extends Controller
 {
@@ -21,7 +22,9 @@ class DisputeController extends Controller
         } else {
             $disputes = Dispute::with('lease.unit.property','lease.tenant','lease.landlord')->get();
         }
-        return view('disputes.index', compact('disputes'));
+        $leases = Lease::get();
+        $users= User::get();
+        return view('disputes.index', compact('disputes', 'leases','users'));
     }
 
     public function create()
