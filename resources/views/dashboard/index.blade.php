@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 {{-- @section('title', 'Dashboard')
 @section('page_title', 'Dashboard') --}}
