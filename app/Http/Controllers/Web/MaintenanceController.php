@@ -57,7 +57,7 @@ class MaintenanceController extends Controller
 
     public function edit(MaintenanceRequest $maintenance)
     {
-        $technicians = User::role('technician')->get();
+        $technicians = User::get();
         return view('maintenance.edit', compact('maintenance','technicians'));
     }
 

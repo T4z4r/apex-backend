@@ -116,6 +116,30 @@
                 <div>{{ __('Disputes') }}</div>
               </a>
             </li>
+            <!-- Access Management -->
+            <li class="menu-item {{ request()->routeIs('roles.*') || request()->routeIs('permissions.*') || request()->routeIs('users.*') ? 'active' : '' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-shield"></i>
+                <div>{{ __('Access Control') }}</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('roles.index') }}" class="menu-link">
+                    <div>{{ __('Roles') }}</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('permissions.index') }}" class="menu-link">
+                    <div>{{ __('Permissions') }}</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('users.index') }}" class="menu-link">
+                    <div>{{ __('User Roles') }}</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
             <!-- Language Switcher -->
             <li class="menu-item">
