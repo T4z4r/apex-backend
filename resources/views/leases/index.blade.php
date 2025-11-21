@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Leases</h3>
+            <h3>{{ __('Leases') }}</h3>
             @can('manage leases')
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createLeaseModal">Add Lease</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createLeaseModal">{{ __('Add Lease') }}</button>
             @endcan
         </div>
 
@@ -17,16 +17,16 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Unit</th>
-                    <th>Tenant</th>
-                    <th>Landlord</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Rent Amount</th>
-                    <th>Deposit Amount</th>
-                    <th>Payment Frequency</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ __('Unit') }}</th>
+                    <th>{{ __('Tenant') }}</th>
+                    <th>{{ __('Landlord') }}</th>
+                    <th>{{ __('Start Date') }}</th>
+                    <th>{{ __('End Date') }}</th>
+                    <th>{{ __('Rent Amount') }}</th>
+                    <th>{{ __('Deposit Amount') }}</th>
+                    <th>{{ __('Payment Frequency') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,13 +51,13 @@
                                     data-deposit_amount="{{ $lease->deposit_amount }}" data-payment_frequency="{{ $lease->payment_frequency }}"
                                     data-status="{{ $lease->status }}" data-lease_pdf_url="{{ $lease->lease_pdf_url }}"
                                     data-bs-toggle="modal" data-bs-target="#editLeaseModal">
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
 
                                 <button class="btn btn-sm btn-danger btn-delete-lease" data-id="{{ $lease->id }}"
                                     data-lease_id="{{ $lease->id }}" data-bs-toggle="modal"
                                     data-bs-target="#deleteLeaseModal">
-                                    Delete
+                                    {{ __('Delete') }}
                                 </button>
                             @endcan
                         </td>

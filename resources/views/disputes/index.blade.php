@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Disputes</h3>
+            <h3>{{ __('Disputes') }}</h3>
             @can('manage disputes')
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDisputeModal">Add Dispute</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDisputeModal">{{ __('Add Dispute') }}</button>
             @endcan
         </div>
 
@@ -17,11 +17,11 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Lease</th>
-                    <th>Raised By</th>
-                    <th>Issue</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ __('Lease') }}</th>
+                    <th>{{ __('Raised By') }}</th>
+                    <th>{{ __('Issue') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,13 +39,13 @@
                                     data-issue="{{ $dispute->issue }}" data-status="{{ $dispute->status }}"
                                     data-evidence="{{ $dispute->evidence }}" data-admin_resolution_notes="{{ $dispute->admin_resolution_notes }}"
                                     data-bs-toggle="modal" data-bs-target="#editDisputeModal">
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
 
                                 <button class="btn btn-sm btn-danger btn-delete-dispute" data-id="{{ $dispute->id }}"
                                     data-issue="{{ Str::limit($dispute->issue, 20) }}" data-bs-toggle="modal"
                                     data-bs-target="#deleteDisputeModal">
-                                    Delete
+                                    {{ __('Delete') }}
                                 </button>
                             @endcan
                         </td>

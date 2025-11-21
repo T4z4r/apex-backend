@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Properties</h3>
+            <h3>{{ __('Properties') }}</h3>
             @can('manage properties')
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPropertyModal">Add Property</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPropertyModal">{{ __('Add Property') }}</button>
             @endcan
         </div>
 
@@ -17,11 +17,11 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Neighborhood</th>
-                    <th>Actions</th>
+                    <th>{{ __('Title') }}</th>
+                    <th>{{ __('Description') }}</th>
+                    <th>{{ __('Address') }}</th>
+                    <th>{{ __('Neighborhood') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,13 +40,13 @@
                                     data-geo_lat="{{ $property->geo_lat }}" data-geo_lng="{{ $property->geo_lng }}"
                                     data-amenities="{{ $property->amenities }}" data-bs-toggle="modal"
                                     data-bs-target="#editPropertyModal">
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
 
                                 <button class="btn btn-sm btn-danger btn-delete-property" data-id="{{ $property->id }}"
                                     data-title="{{ $property->title }}" data-bs-toggle="modal"
                                     data-bs-target="#deletePropertyModal">
-                                    Delete
+                                    {{ __('Delete') }}
                                 </button>
                             @endcan
                         </td>

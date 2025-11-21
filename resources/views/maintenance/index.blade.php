@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Maintenance Requests</h3>
+            <h3>{{ __('Maintenance Requests') }}</h3>
             @if(auth()->user()->hasRole('tenant'))
-                <a href="{{ route('maintenance.create') }}" class="btn btn-primary">Submit Request</a>
+                <a href="{{ route('maintenance.create') }}" class="btn btn-primary">{{ __('Submit Request') }}</a>
             @endif
         </div>
 
@@ -17,14 +17,14 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Property</th>
-                    <th>Unit</th>
-                    <th>Tenant</th>
-                    <th>Title</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Assigned To</th>
-                    <th>Actions</th>
+                    <th>{{ __('Property') }}</th>
+                    <th>{{ __('Unit') }}</th>
+                    <th>{{ __('Tenant') }}</th>
+                    <th>{{ __('Title') }}</th>
+                    <th>{{ __('Priority') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Assigned To') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,8 +48,8 @@
                         <td>{{ $item->assigned->name ?? '-' }}</td>
                         <td>
                             @if(!auth()->user()->hasRole('tenant'))
-                                <a href="{{ route('maintenance.edit', $item) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <button class="btn btn-sm btn-danger btn-delete-maintenance" data-id="{{ $item->id }}" data-title="{{ $item->title }}" data-bs-toggle="modal" data-bs-target="#deleteMaintenanceModal">Delete</button>
+                                <a href="{{ route('maintenance.edit', $item) }}" class="btn btn-sm btn-warning">{{ __('Edit') }}</a>
+                                <button class="btn btn-sm btn-danger btn-delete-maintenance" data-id="{{ $item->id }}" data-title="{{ $item->title }}" data-bs-toggle="modal" data-bs-target="#deleteMaintenanceModal">{{ __('Delete') }}</button>
                             @endif
                         </td>
                     </tr>

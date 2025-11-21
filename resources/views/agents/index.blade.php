@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Agents</h3>
+            <h3>{{ __('Agents') }}</h3>
             @can('manage agents')
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAgentModal">Add Agent</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAgentModal">{{ __('Add Agent') }}</button>
             @endcan
         </div>
 
@@ -17,11 +17,11 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>User</th>
-                    <th>Agency Name</th>
-                    <th>Commission Rate (%)</th>
-                    <th>Verified</th>
-                    <th>Actions</th>
+                    <th>{{ __('User') }}</th>
+                    <th>{{ __('Agency Name') }}</th>
+                    <th>{{ __('Commission Rate (%)') }}</th>
+                    <th>{{ __('Verified') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,20 +31,20 @@
                         <td>{{ $agent->user->name ?? '-' }}</td>
                         <td>{{ $agent->agency_name }}</td>
                         <td>{{ $agent->commission_rate }}%</td>
-                        <td>{{ $agent->verified_at ? 'Yes' : 'No' }}</td>
+                        <td>{{ $agent->verified_at ? __('Yes') : __('No') }}</td>
                         <td>
                             @can('manage agents')
                                 <button class="btn btn-sm btn-warning btn-edit-agent" data-id="{{ $agent->id }}"
                                     data-user_id="{{ $agent->user_id }}" data-agency_name="{{ $agent->agency_name }}"
                                     data-commission_rate="{{ $agent->commission_rate }}" data-docs="{{ $agent->docs }}"
                                     data-bs-toggle="modal" data-bs-target="#editAgentModal">
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
 
                                 <button class="btn btn-sm btn-danger btn-delete-agent" data-id="{{ $agent->id }}"
                                     data-agency_name="{{ $agent->agency_name }}" data-bs-toggle="modal"
                                     data-bs-target="#deleteAgentModal">
-                                    Delete
+                                    {{ __('Delete') }}
                                 </button>
                             @endcan
                         </td>

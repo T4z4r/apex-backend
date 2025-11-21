@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Units</h3>
+            <h3>{{ __('Units') }}</h3>
             @can('manage units')
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUnitModal">Add Unit</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUnitModal">{{ __('Add Unit') }}</button>
             @endcan
         </div>
 
@@ -17,14 +17,14 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Property</th>
-                    <th>Unit Label</th>
-                    <th>Bedrooms</th>
-                    <th>Bathrooms</th>
-                    <th>Rent</th>
-                    <th>Deposit</th>
-                    <th>Available</th>
-                    <th>Actions</th>
+                    <th>{{ __('Property') }}</th>
+                    <th>{{ __('Unit Label') }}</th>
+                    <th>{{ __('Bedrooms') }}</th>
+                    <th>{{ __('Bathrooms') }}</th>
+                    <th>{{ __('Rent') }}</th>
+                    <th>{{ __('Deposit') }}</th>
+                    <th>{{ __('Available') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
                         <td>{{ $unit->bathrooms ?? '-' }}</td>
                         <td>{{ number_format($unit->rent_amount, 2) }}</td>
                         <td>{{ number_format($unit->deposit_amount ?? 0, 2) }}</td>
-                        <td>{{ $unit->is_available ? 'Yes' : 'No' }}</td>
+                        <td>{{ $unit->is_available ? __('Yes') : __('No') }}</td>
                         <td>
                             @can('manage units')
                                 <button class="btn btn-sm btn-warning btn-edit-unit" data-id="{{ $unit->id }}"
@@ -47,13 +47,13 @@
                                     data-deposit_amount="{{ $unit->deposit_amount }}"
                                     data-is_available="{{ $unit->is_available ? 1 : 0 }}" data-bs-toggle="modal"
                                     data-bs-target="#editUnitModal">
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
 
                                 <button class="btn btn-sm btn-danger btn-delete-unit" data-id="{{ $unit->id }}"
                                     data-unit_label="{{ $unit->unit_label }}" data-bs-toggle="modal"
                                     data-bs-target="#deleteUnitModal">
-                                    Delete
+                                    {{ __('Delete') }}
                                 </button>
                             @endcan
                         </td>
