@@ -49,6 +49,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize DataTable if available

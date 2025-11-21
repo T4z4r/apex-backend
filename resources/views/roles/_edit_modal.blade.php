@@ -18,12 +18,11 @@
 
         <div class="mb-3">
           <label class="form-label">{{ __('Permissions') }}</label>
-          <select name="permissions[]" class="form-select" multiple>
+          <select name="permissions[]" class="form-select select2" multiple>
             @foreach($permissions as $permission)
               <option value="{{ $permission->id }}">{{ $permission->name }}</option>
             @endforeach
           </select>
-          <small class="form-text text-muted">{{ __('Hold Ctrl (Cmd on Mac) to select multiple permissions') }}</small>
         </div>
       </div>
       <div class="modal-footer">
