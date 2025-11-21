@@ -12,8 +12,12 @@ class LeaseSeeder extends Seeder
     public function run(): void
     {
         $units = Unit::all();
-        $tenants = User::role('tenant')->get();
-        $landlords = User::role('landlord')->get();
+        $tenants = User::whereHas('roles', function($query) {
+            $query->where('name', 'tenant');
+        })->get();
+        $landlords = User::whereHas('roles', function($query) {
+            $query->where('name', 'landlord');
+        })->get();
 
         if ($units->isEmpty() || $tenants->isEmpty() || $landlords->isEmpty()) {
             return; // Skip if required data doesn't exist

@@ -10,7 +10,9 @@ class AgentSeeder extends Seeder
 {
     public function run(): void
     {
-        $agents = User::role('agent')->get();
+        $agents = User::whereHas('roles', function($query) {
+            $query->where('name', 'agent');
+        })->get();
 
         $agentData = [
             [

@@ -15,7 +15,10 @@ class LeaseController extends Controller
     public function index()
     {
         $leases = Lease::with(['unit.property', 'tenant', 'landlord'])->get();
-        return view('leases.index', compact('leases'));
+        $units = Unit::where('is_available', true)->with('property')->get();
+        $tenants = User::role('tenant')->get();
+        $landlords = User::role('landlord')->get();
+        return view('leases.index', compact('leases', 'units', 'tenants', 'landlords'));
     }
 
     public function create()
@@ -80,7 +83,7 @@ class LeaseController extends Controller
     public function generatePdf(Lease $lease)
     {
         $pdf = Pdf::loadView('leases.template', compact('lease'));
-        $fileName = 'leases/lease_'.$lease->id.'_'.time().'.pdf';
+        $fileName = 'leases/lease_' . $lease->id . '_' . time() . '.pdf';
         Storage::disk('public')->put($fileName, $pdf->output());
         $lease->lease_pdf_url = Storage::url($fileName);
         $lease->save();

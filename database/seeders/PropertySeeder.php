@@ -10,7 +10,10 @@ class PropertySeeder extends Seeder
 {
     public function run(): void
     {
-        $landlords = User::role('landlord')->get();
+        // Get users who have the landlord role assigned
+        $landlords = User::whereHas('roles', function($query) {
+            $query->where('name', 'landlord');
+        })->get();
 
         if ($landlords->isEmpty()) {
             return; // Skip if no landlords exist

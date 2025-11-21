@@ -62,13 +62,13 @@
       <div class="layout-container">
         <!-- Menu -->
 
-     
+
 
         @include('layouts.components.sidebar')
         <!-- / Menu -->
 
         <!-- Layout container -->
-        <div class="layout-page">
+        <div class="layout-page ">
           <!-- Navbar -->
 
           <nav
@@ -155,12 +155,12 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+          <div class="content-wrapper p-2">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">Page 1</h4>
-              <p>
+              <small>
                 Sample page.<br />For more layout options use
                 <a href="https://themeselection.com/tools/generator/sneat/html" target="_blank" class="fw-bold"
                   >HTML starter template generator</a
@@ -172,10 +172,11 @@
                   class="fw-bold"
                   >Layout docs</a
                 >.
-              </p>
+              </small>
+              <hr>
 
 
-              @section('content')
+              @yield('content')
             </div>
             <!-- / Content -->
 
@@ -233,7 +234,7 @@
 
     <!-- Main JS -->
     <script src="{{  asset('assets/js/main.js')  }}"></script>
-
+    @yield('scripts')
     <!-- Page JS -->
   </body>
 </html>

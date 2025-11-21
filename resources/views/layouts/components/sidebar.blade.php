@@ -102,13 +102,6 @@
                 <div data-i18n="Maintenance">Maintenance</div>
               </a>
             </li>
-            <!-- Payments -->
-            <li class="menu-item {{ request()->routeIs('payments.*') ? 'active' : '' }}">
-              <a href="{{ route('payments.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-money"></i>
-                <div data-i18n="Payments">Payments</div>
-              </a>
-            </li>
             <!-- Agents -->
             <li class="menu-item {{ request()->routeIs('agents.*') ? 'active' : '' }}">
               <a href="{{ route('agents.index') }}" class="menu-link">

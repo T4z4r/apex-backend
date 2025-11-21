@@ -13,7 +13,8 @@ class AgentController extends Controller
     public function index()
     {
         $agents = Agent::with('user')->get();
-        return view('agents.index', compact('agents'));
+        $users= User::get();
+        return view('agents.index', compact('agents', 'users'));
     }
 
     public function create()

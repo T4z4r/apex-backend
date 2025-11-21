@@ -12,7 +12,9 @@ class UnitController extends Controller
     public function index()
     {
         $units = Unit::with('property')->get();
-        return view('units.index', compact('units'));
+        $properties = Property::all();
+
+        return view('units.index', compact('units', 'properties'));
     }
 
     public function create()
