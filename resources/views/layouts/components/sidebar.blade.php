@@ -112,7 +112,7 @@
             <!-- Disputes -->
             <li class="menu-item {{ request()->routeIs('disputes.*') ? 'active' : '' }}">
               <a href="{{ route('disputes.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-alert-triangle"></i>
+                <i class="menu-icon tf-icons bx bx-error"></i>
                 <div data-i18n="Disputes">Disputes</div>
               </a>
             </li>
