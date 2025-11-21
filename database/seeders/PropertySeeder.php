@@ -12,6 +12,10 @@ class PropertySeeder extends Seeder
     {
         $landlords = User::role('landlord')->get();
 
+        if ($landlords->isEmpty()) {
+            return; // Skip if no landlords exist
+        }
+
         $properties = [
             [
                 'landlord_id' => $landlords->first()->id,
@@ -33,8 +37,12 @@ class PropertySeeder extends Seeder
                 'geo_lng' => 36.783333,
                 'amenities' => json_encode(['garden', 'parking', 'security']),
             ],
-            [
-                'landlord_id' => $landlords->skip(1)->first()->id ?? $landlords->first()->id,
+        ];
+
+        // Only add third property if we have at least 2 landlords
+        if ($landlords->count() >= 2) {
+            $properties[] = [
+                'landlord_id' => $landlords->skip(1)->first()->id,
                 'title' => 'Downtown Office Space',
                 'description' => 'Prime office location in the city center.',
                 'address' => '789 Business District, Nairobi',
@@ -42,8 +50,8 @@ class PropertySeeder extends Seeder
                 'geo_lat' => -1.283333,
                 'geo_lng' => 36.816667,
                 'amenities' => json_encode(['elevator', 'conference room', 'parking']),
-            ],
-        ];
+            ];
+        }
 
         foreach ($properties as $propertyData) {
             Property::create($propertyData);

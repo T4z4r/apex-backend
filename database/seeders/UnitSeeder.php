@@ -12,6 +12,10 @@ class UnitSeeder extends Seeder
     {
         $properties = Property::all();
 
+        if ($properties->isEmpty()) {
+            return; // Skip if no properties exist
+        }
+
         $units = [
             [
                 'property_id' => $properties->first()->id,
@@ -35,8 +39,12 @@ class UnitSeeder extends Seeder
                 'is_available' => true,
                 'photos' => json_encode(['photo3.jpg', 'photo4.jpg']),
             ],
-            [
-                'property_id' => $properties->skip(1)->first()->id ?? $properties->first()->id,
+        ];
+
+        // Add more units if we have multiple properties
+        if ($properties->count() >= 2) {
+            $units[] = [
+                'property_id' => $properties->skip(1)->first()->id,
                 'unit_label' => 'House 1',
                 'bedrooms' => 4,
                 'bathrooms' => 3,
@@ -45,9 +53,12 @@ class UnitSeeder extends Seeder
                 'deposit_amount' => 60000.00,
                 'is_available' => false,
                 'photos' => json_encode(['house1.jpg', 'house2.jpg']),
-            ],
-            [
-                'property_id' => $properties->skip(2)->first()->id ?? $properties->first()->id,
+            ];
+        }
+
+        if ($properties->count() >= 3) {
+            $units[] = [
+                'property_id' => $properties->skip(2)->first()->id,
                 'unit_label' => 'Office 101',
                 'bedrooms' => 0,
                 'bathrooms' => 1,
@@ -56,8 +67,8 @@ class UnitSeeder extends Seeder
                 'deposit_amount' => 15000.00,
                 'is_available' => true,
                 'photos' => json_encode(['office1.jpg']),
-            ],
-        ];
+            ];
+        }
 
         foreach ($units as $unitData) {
             Unit::create($unitData);

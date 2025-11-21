@@ -14,9 +14,11 @@ class UserSeeder extends Seeder
         // Create admin user
         $admin = User::create([
             'name' => 'Admin User',
+            'phone' => '+1234567890',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
-            'email_verified_at' => now(),
+            'role' => 'admin',
+            'is_verified' => true,
         ]);
         $admin->assignRole('admin');
 
@@ -24,15 +26,19 @@ class UserSeeder extends Seeder
         $landlords = [
             [
                 'name' => 'John Landlord',
+                'phone' => '+1234567891',
                 'email' => 'john.landlord@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'landlord',
+                'is_verified' => true,
             ],
             [
                 'name' => 'Jane Landlord',
+                'phone' => '+1234567892',
                 'email' => 'jane.landlord@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'landlord',
+                'is_verified' => true,
             ],
         ];
 
@@ -45,21 +51,27 @@ class UserSeeder extends Seeder
         $tenants = [
             [
                 'name' => 'Alice Tenant',
+                'phone' => '+1234567893',
                 'email' => 'alice.tenant@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'tenant',
+                'is_verified' => true,
             ],
             [
                 'name' => 'Bob Tenant',
+                'phone' => '+1234567894',
                 'email' => 'bob.tenant@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'tenant',
+                'is_verified' => true,
             ],
             [
                 'name' => 'Charlie Tenant',
+                'phone' => '+1234567895',
                 'email' => 'charlie.tenant@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'tenant',
+                'is_verified' => true,
             ],
         ];
 
@@ -72,15 +84,19 @@ class UserSeeder extends Seeder
         $agents = [
             [
                 'name' => 'David Agent',
+                'phone' => '+1234567896',
                 'email' => 'david.agent@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'agent',
+                'is_verified' => true,
             ],
             [
                 'name' => 'Eva Agent',
+                'phone' => '+1234567897',
                 'email' => 'eva.agent@example.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now(),
+                'role' => 'agent',
+                'is_verified' => true,
             ],
         ];
 

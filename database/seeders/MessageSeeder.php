@@ -14,26 +14,40 @@ class MessageSeeder extends Seeder
         $conversations = Conversation::all();
         $users = User::all();
 
+        if ($conversations->isEmpty() || $users->isEmpty()) {
+            return; // Skip if required data doesn't exist
+        }
+
+        $firstConversation = $conversations->first();
+
         $messages = [
             [
-                'conversation_id' => $conversations->first()->id,
+                'conversation_id' => $firstConversation->id,
                 'sender_id' => $users->first()->id,
                 'content' => 'Hello, I have a question about the property.',
                 'attachments' => json_encode([]),
             ],
-            [
-                'conversation_id' => $conversations->first()->id,
-                'sender_id' => $users->skip(1)->first()->id ?? $users->first()->id,
+        ];
+
+        // Add second message if we have enough users
+        if ($users->count() >= 2) {
+            $messages[] = [
+                'conversation_id' => $firstConversation->id,
+                'sender_id' => $users->skip(1)->first()->id,
                 'content' => 'Sure, what would you like to know?',
                 'attachments' => json_encode([]),
-            ],
-            [
-                'conversation_id' => $conversations->skip(1)->first()->id ?? $conversations->first()->id,
-                'sender_id' => $users->skip(2)->first()->id ?? $users->first()->id,
+            ];
+        }
+
+        // Add third message if we have multiple conversations and users
+        if ($conversations->count() >= 2 && $users->count() >= 3) {
+            $messages[] = [
+                'conversation_id' => $conversations->skip(1)->first()->id,
+                'sender_id' => $users->skip(2)->first()->id,
                 'content' => 'When is the lease for unit A102 available?',
                 'attachments' => json_encode(['lease_doc.pdf']),
-            ],
-        ];
+            ];
+        }
 
         foreach ($messages as $messageData) {
             Message::create($messageData);

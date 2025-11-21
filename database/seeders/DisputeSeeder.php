@@ -12,23 +12,34 @@ class DisputeSeeder extends Seeder
     {
         $leases = Lease::all();
 
+        if ($leases->isEmpty()) {
+            return; // Skip if no leases exist
+        }
+
+        $firstLease = $leases->first();
+
         $disputes = [
             [
-                'lease_id' => $leases->first()->id,
-                'raised_by' => $leases->first()->tenant_id,
+                'lease_id' => $firstLease->id,
+                'raised_by' => $firstLease->tenant_id,
                 'issue' => 'Rent payment was deducted twice from my account.',
                 'status' => 'open',
                 'evidence' => json_encode(['receipt1.pdf', 'bank_statement.pdf']),
             ],
-            [
-                'lease_id' => $leases->skip(1)->first()->id ?? $leases->first()->id,
-                'raised_by' => $leases->skip(1)->first()->tenant_id ?? $leases->first()->tenant_id,
+        ];
+
+        // Add second dispute if we have multiple leases
+        if ($leases->count() >= 2) {
+            $secondLease = $leases->skip(1)->first();
+            $disputes[] = [
+                'lease_id' => $secondLease->id,
+                'raised_by' => $secondLease->tenant_id,
                 'issue' => 'Maintenance request for plumbing was not addressed.',
                 'status' => 'in_review',
                 'evidence' => json_encode(['maintenance_ticket.pdf']),
                 'admin_resolution_notes' => 'Investigating with maintenance team.',
-            ],
-        ];
+            ];
+        }
 
         foreach ($disputes as $disputeData) {
             Dispute::create($disputeData);
