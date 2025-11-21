@@ -71,50 +71,70 @@
             <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
               <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Dashboard">Dashboard</div>
+                <div>{{ __('Dashboard') }}</div>
               </a>
             </li>
             <!-- Properties -->
             <li class="menu-item {{ request()->routeIs('properties.*') ? 'active' : '' }}">
               <a href="{{ route('properties.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-building"></i>
-                <div data-i18n="Properties">Properties</div>
+                <div>{{ __('Properties') }}</div>
               </a>
             </li>
             <!-- Units -->
             <li class="menu-item {{ request()->routeIs('units.*') ? 'active' : '' }}">
               <a href="{{ route('units.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-door-open"></i>
-                <div data-i18n="Units">Units</div>
+                <div>{{ __('Units') }}</div>
               </a>
             </li>
             <!-- Leases -->
             <li class="menu-item {{ request()->routeIs('leases.*') ? 'active' : '' }}">
               <a href="{{ route('leases.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Leases">Leases</div>
+                <div>{{ __('Leases') }}</div>
               </a>
             </li>
             <!-- Maintenance -->
             <li class="menu-item {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
               <a href="{{ route('maintenance.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-wrench"></i>
-                <div data-i18n="Maintenance">Maintenance</div>
+                <div>{{ __('Maintenance') }}</div>
               </a>
             </li>
             <!-- Agents -->
             <li class="menu-item {{ request()->routeIs('agents.*') ? 'active' : '' }}">
               <a href="{{ route('agents.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Agents">Agents</div>
+                <div>{{ __('Agents') }}</div>
               </a>
             </li>
             <!-- Disputes -->
             <li class="menu-item {{ request()->routeIs('disputes.*') ? 'active' : '' }}">
               <a href="{{ route('disputes.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-error"></i>
-                <div data-i18n="Disputes">Disputes</div>
+                <div>{{ __('Disputes') }}</div>
               </a>
+            </li>
+
+            <!-- Language Switcher -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-globe"></i>
+                <div>{{ strtoupper(app()->getLocale()) }}</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('lang.switch', 'en') }}" class="menu-link">
+                    <div>EN - English</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('lang.switch', 'sw') }}" class="menu-link">
+                    <div>SW - Swahili</div>
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </aside>

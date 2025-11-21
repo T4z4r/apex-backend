@@ -1,5 +1,14 @@
 {
     "Dashboard": "Dashboard",
     "Profile": "Profile",
-    "Log Out": "Log Out"
+    "Log Out": "Log Out",
+    "Login": "Login",
+    "Register": "Register",
+    "Properties": "Properties",
+    "Units": "Units",
+    "Leases": "Leases",
+    "Maintenance Requests": "Maintenance Requests",
+    "Maintenance": "Maintenance",
+    "Agents": "Agents",
+    "Disputes": "Disputes"
 }
