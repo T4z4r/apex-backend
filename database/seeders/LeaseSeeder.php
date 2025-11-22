@@ -23,11 +23,12 @@ class LeaseSeeder extends Seeder
             return; // Skip if required data doesn't exist
         }
 
+        $firstLandlord = $landlords->first();
         $leases = [
             [
                 'unit_id' => $units->first()->id,
-                'tenant_id' => $tenants->first()->id,
-                'landlord_id' => $landlords->first()->id,
+                'tenant_id' => $firstLandlord->tenant_id,
+                'landlord_id' => $firstLandlord->id,
                 'start_date' => now()->subMonths(1)->toDateString(),
                 'end_date' => now()->addMonths(11)->toDateString(),
                 'rent_amount' => 25000.00,
@@ -42,8 +43,8 @@ class LeaseSeeder extends Seeder
         if ($units->count() >= 2 && $tenants->count() >= 2) {
             $leases[] = [
                 'unit_id' => $units->skip(1)->first()->id,
-                'tenant_id' => $tenants->skip(1)->first()->id,
-                'landlord_id' => $landlords->first()->id,
+                'tenant_id' => $firstLandlord->tenant_id,
+                'landlord_id' => $firstLandlord->id,
                 'start_date' => now()->subMonths(2)->toDateString(),
                 'end_date' => now()->addMonths(10)->toDateString(),
                 'rent_amount' => 35000.00,
@@ -56,10 +57,11 @@ class LeaseSeeder extends Seeder
 
         // Add third lease if we have enough data
         if ($units->count() >= 3 && $tenants->count() >= 3 && $landlords->count() >= 2) {
+            $secondLandlord = $landlords->skip(1)->first();
             $leases[] = [
                 'unit_id' => $units->skip(2)->first()->id,
-                'tenant_id' => $tenants->skip(2)->first()->id,
-                'landlord_id' => $landlords->skip(1)->first()->id,
+                'tenant_id' => $secondLandlord->tenant_id,
+                'landlord_id' => $secondLandlord->id,
                 'start_date' => now()->addMonths(1)->toDateString(),
                 'end_date' => now()->addMonths(13)->toDateString(),
                 'rent_amount' => 60000.00,

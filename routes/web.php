@@ -13,6 +13,8 @@ use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\AgentController;
 use App\Http\Controllers\Web\RoleController;
 use App\Http\Controllers\Web\PermissionController;
+use App\Http\Controllers\Web\PlanController;
+use App\Http\Controllers\Web\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,6 +68,8 @@ Route::resource('users', UserController::class);
 Route::resource('agents', AgentController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('permissions', PermissionController::class);
+Route::resource('plans', PlanController::class);
+Route::resource('subscriptions', SubscriptionController::class);
 });
 });
 

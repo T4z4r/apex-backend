@@ -24,7 +24,24 @@ class PropertyController extends Controller
 
     public function store(Request $r)
     {
-        Property::create($r->validate(['name' => 'required', 'location' => 'required']));
+        $tenant = auth()->user()->tenant;
+
+        if (!$tenant->canAddProperty()) {
+            return back()->with('error', 'You have reached your property limit. Please upgrade your plan.');
+        }
+
+        $data = $r->validate([
+            'title' => 'required',
+            'description' => 'nullable',
+            'address' => 'required',
+            'neighborhood' => 'required',
+            'geo_lat' => 'nullable|numeric',
+            'geo_lng' => 'nullable|numeric',
+            'amenities' => 'nullable|json'
+        ]);
+        $data['landlord_id'] = auth()->id();
+        $data['tenant_id'] = auth()->user()->tenant_id;
+        Property::create($data);
         return back()->with('success', 'Property added');
     }
 

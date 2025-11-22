@@ -16,9 +16,11 @@ class UnitSeeder extends Seeder
             return; // Skip if no properties exist
         }
 
+        $firstProperty = $properties->first();
         $units = [
             [
-                'property_id' => $properties->first()->id,
+                'property_id' => $firstProperty->id,
+                'tenant_id' => $firstProperty->tenant_id,
                 'unit_label' => 'A101',
                 'bedrooms' => 2,
                 'bathrooms' => 1,
@@ -29,7 +31,8 @@ class UnitSeeder extends Seeder
                 'photos' => json_encode(['photo1.jpg', 'photo2.jpg']),
             ],
             [
-                'property_id' => $properties->first()->id,
+                'property_id' => $firstProperty->id,
+                'tenant_id' => $firstProperty->tenant_id,
                 'unit_label' => 'A102',
                 'bedrooms' => 3,
                 'bathrooms' => 2,
@@ -43,8 +46,10 @@ class UnitSeeder extends Seeder
 
         // Add more units if we have multiple properties
         if ($properties->count() >= 2) {
+            $secondProperty = $properties->skip(1)->first();
             $units[] = [
-                'property_id' => $properties->skip(1)->first()->id,
+                'property_id' => $secondProperty->id,
+                'tenant_id' => $secondProperty->tenant_id,
                 'unit_label' => 'House 1',
                 'bedrooms' => 4,
                 'bathrooms' => 3,
@@ -57,8 +62,10 @@ class UnitSeeder extends Seeder
         }
 
         if ($properties->count() >= 3) {
+            $thirdProperty = $properties->skip(2)->first();
             $units[] = [
-                'property_id' => $properties->skip(2)->first()->id,
+                'property_id' => $thirdProperty->id,
+                'tenant_id' => $thirdProperty->tenant_id,
                 'unit_label' => 'Office 101',
                 'bedrooms' => 0,
                 'bathrooms' => 1,

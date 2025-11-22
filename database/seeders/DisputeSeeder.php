@@ -21,10 +21,10 @@ class DisputeSeeder extends Seeder
         $disputes = [
             [
                 'lease_id' => $firstLease->id,
+                'tenant_id' => $firstLease->tenant_id,
                 'raised_by' => $firstLease->tenant_id,
                 'issue' => 'Rent payment was deducted twice from my account.',
                 'status' => 'open',
-                'evidence' => json_encode(['receipt1.pdf', 'bank_statement.pdf']),
             ],
         ];
 
@@ -33,11 +33,10 @@ class DisputeSeeder extends Seeder
             $secondLease = $leases->skip(1)->first();
             $disputes[] = [
                 'lease_id' => $secondLease->id,
+                'tenant_id' => $secondLease->tenant_id,
                 'raised_by' => $secondLease->tenant_id,
                 'issue' => 'Maintenance request for plumbing was not addressed.',
                 'status' => 'in_review',
-                'evidence' => json_encode(['maintenance_ticket.pdf']),
-                'admin_resolution_notes' => 'Investigating with maintenance team.',
             ];
         }
 

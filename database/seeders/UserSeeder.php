@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => 'admin',
             'is_verified' => true,
+            'tenant_id' => 1,
         ]);
         $admin->assignRole('admin');
 
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'landlord',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
             [
                 'name' => 'Jane Landlord',
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'landlord',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
         ];
 
@@ -56,6 +59,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'tenant',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
             [
                 'name' => 'Bob Tenant',
@@ -64,6 +68,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'tenant',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
             [
                 'name' => 'Charlie Tenant',
@@ -72,6 +77,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'tenant',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
         ];
 
@@ -89,6 +95,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'agent',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
             [
                 'name' => 'Eva Agent',
@@ -97,6 +104,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'agent',
                 'is_verified' => true,
+                'tenant_id' => 1,
             ],
         ];
 

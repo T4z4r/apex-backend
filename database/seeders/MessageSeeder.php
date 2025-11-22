@@ -23,9 +23,9 @@ class MessageSeeder extends Seeder
         $messages = [
             [
                 'conversation_id' => $firstConversation->id,
+                'tenant_id' => $firstConversation->tenant_id,
                 'sender_id' => $users->first()->id,
                 'content' => 'Hello, I have a question about the property.',
-                'attachments' => json_encode([]),
             ],
         ];
 
@@ -33,19 +33,20 @@ class MessageSeeder extends Seeder
         if ($users->count() >= 2) {
             $messages[] = [
                 'conversation_id' => $firstConversation->id,
+                'tenant_id' => $firstConversation->tenant_id,
                 'sender_id' => $users->skip(1)->first()->id,
                 'content' => 'Sure, what would you like to know?',
-                'attachments' => json_encode([]),
             ];
         }
 
         // Add third message if we have multiple conversations and users
         if ($conversations->count() >= 2 && $users->count() >= 3) {
+            $secondConversation = $conversations->skip(1)->first();
             $messages[] = [
-                'conversation_id' => $conversations->skip(1)->first()->id,
+                'conversation_id' => $secondConversation->id,
+                'tenant_id' => $secondConversation->tenant_id,
                 'sender_id' => $users->skip(2)->first()->id,
                 'content' => 'When is the lease for unit A102 available?',
-                'attachments' => json_encode(['lease_doc.pdf']),
             ];
         }
 

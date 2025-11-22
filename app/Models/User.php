@@ -11,7 +11,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    protected static function booted()
+    {
+        // Users are not globally scoped by tenant for authentication purposes
+        // Tenant scoping is handled in middleware and other models
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -19,14 +25,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
      protected $fillable = [
-        'name',
-        'phone',
-        'email',
-        'password',
-        'role',
-        'is_verified',
-        'id_document_url'
-    ];
+         'name',
+         'phone',
+         'email',
+         'password',
+         'role',
+         'is_verified',
+         'id_document_url',
+         'tenant_id'
+     ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,4 +53,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

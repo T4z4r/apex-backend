@@ -116,6 +116,20 @@
                 <div>{{ __('Disputes') }}</div>
               </a>
             </li>
+            <!-- Plans -->
+            <li class="menu-item {{ request()->routeIs('plans.*') ? 'active' : '' }}">
+              <a href="{{ route('plans.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div>{{ __('Plans') }}</div>
+              </a>
+            </li>
+            <!-- Subscriptions -->
+            <li class="menu-item {{ request()->routeIs('subscriptions.*') ? 'active' : '' }}">
+              <a href="{{ route('subscriptions.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div>{{ __('Subscriptions') }}</div>
+              </a>
+            </li>
             <!-- Access Management -->
             <li class="menu-item {{ request()->routeIs('roles.*') || request()->routeIs('permissions.*') || request()->routeIs('users.*') ? 'active' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">

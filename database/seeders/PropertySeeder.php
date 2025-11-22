@@ -19,9 +19,11 @@ class PropertySeeder extends Seeder
             return; // Skip if no landlords exist
         }
 
+        $firstLandlord = $landlords->first();
         $properties = [
             [
-                'landlord_id' => $landlords->first()->id,
+                'landlord_id' => $firstLandlord->id,
+                'tenant_id' => $firstLandlord->tenant_id,
                 'title' => 'Luxury Apartment Complex',
                 'description' => 'A modern apartment complex with premium amenities.',
                 'address' => '123 Main Street, Nairobi',
@@ -31,7 +33,8 @@ class PropertySeeder extends Seeder
                 'amenities' => json_encode(['gym', 'pool', 'parking', 'security']),
             ],
             [
-                'landlord_id' => $landlords->first()->id,
+                'landlord_id' => $firstLandlord->id,
+                'tenant_id' => $firstLandlord->tenant_id,
                 'title' => 'Cozy Family Home',
                 'description' => 'Spacious family home in a quiet neighborhood.',
                 'address' => '456 Oak Avenue, Nairobi',
@@ -44,8 +47,10 @@ class PropertySeeder extends Seeder
 
         // Only add third property if we have at least 2 landlords
         if ($landlords->count() >= 2) {
+            $secondLandlord = $landlords->skip(1)->first();
             $properties[] = [
-                'landlord_id' => $landlords->skip(1)->first()->id,
+                'landlord_id' => $secondLandlord->id,
+                'tenant_id' => $secondLandlord->tenant_id,
                 'title' => 'Downtown Office Space',
                 'description' => 'Prime office location in the city center.',
                 'address' => '789 Business District, Nairobi',
