@@ -11,6 +11,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (formAuthentication) {
       const fv = FormValidation.formValidation(formAuthentication, {
         fields: {
+          name: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your full name'
+              },
+              stringLength: {
+                min: 2,
+                message: 'Name must be more than 2 characters'
+              }
+            }
+          },
           username: {
             validators: {
               notEmpty: {
@@ -68,6 +79,27 @@ document.addEventListener('DOMContentLoaded', function (e) {
               stringLength: {
                 min: 6,
                 message: 'Password must be more than 6 characters'
+              }
+            }
+          },
+          role: {
+            validators: {
+              notEmpty: {
+                message: 'Please select your role'
+              }
+            }
+          },
+          plan_id: {
+            validators: {
+              callback: {
+                message: 'Please select a plan',
+                callback: function (value, validator, $field) {
+                  const roleField = formAuthentication.querySelector('[name="role"]');
+                  if (roleField && roleField.value === 'landlord') {
+                    return value !== '';
+                  }
+                  return true;
+                }
               }
             }
           },

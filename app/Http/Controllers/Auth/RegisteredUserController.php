@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'in:landlord,tenant,agent'],
+            'plan_id' => ['required_if:role,landlord', 'exists:plans,id'],
         ]);
 
         $tenantId = 1; // Default for non-landlords
@@ -50,12 +51,13 @@ class RegisteredUserController extends Controller
                 'domain' => Str::slug($request->name) . '-' . Str::random(4),
             ]);
 
-            // Create free trial subscription (Professional plan)
+            // Create subscription with selected plan
+            $plan = \App\Models\Plan::findOrFail($request->plan_id);
             Subscription::create([
                 'tenant_id' => $tenant->id,
-                'plan_id' => 2, // Professional plan
+                'plan_id' => $request->plan_id,
                 'billing_cycle' => 'monthly',
-                'trial_ends_at' => now()->addDays(30), // 30-day free trial
+                'trial_ends_at' => now()->addDays($plan->trial_days ?? 14), // Use plan's trial days or default to 14
                 'status' => 'trial',
             ]);
 
