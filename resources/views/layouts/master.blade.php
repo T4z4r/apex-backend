@@ -143,13 +143,10 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="dropdown-item">
-                          <i class="bx bx-power-off me-2"></i>
-                          <span class="align-middle">Log Out</span>
-                        </button>
-                      </form>
+                      <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
                     </li>
                   </ul>
                 </li>
@@ -242,5 +239,25 @@
     <script src="{{  asset('assets/js/main.js')  }}"></script>
     @yield('scripts')
     <!-- Page JS -->
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <form method="POST" action="{{ route('logout') }}" class="modal-content">
+          @csrf
+          <div class="modal-header">
+            <h5 class="modal-title">{{ __('Confirm Logout') }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            {{ __('Are you sure you want to log out?') }}
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+            <button class="btn btn-danger" type="submit">{{ __('Log Out') }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
