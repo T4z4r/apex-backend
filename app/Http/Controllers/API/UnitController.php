@@ -10,6 +10,35 @@ use Illuminate\Support\Facades\Auth;
 
 class UnitController extends Controller
 {
+    // List units (with optional filters)
+    public function index(Request $request)
+    {
+        $query = Unit::query();
+
+        if ($request->filled('property_id')) {
+            $query->where('property_id', $request->property_id);
+        }
+
+        if ($request->filled('is_available')) {
+            $query->where('is_available', $request->boolean('is_available'));
+        }
+
+        if ($request->filled('bedrooms')) {
+            $query->where('bedrooms', $request->bedrooms);
+        }
+
+        $units = $query->with('property')->get();
+
+        return response()->json($units, 200);
+    }
+
+    // Show single unit
+    public function show($id)
+    {
+        $unit = Unit::with('property')->findOrFail($id);
+        return response()->json($unit, 200);
+    }
+
     // Add unit to a property
     public function store(Request $request, $propertyId)
     {
@@ -44,5 +73,51 @@ class UnitController extends Controller
         ]);
 
         return response()->json($unit, 201);
+    }
+
+    // Update unit
+    public function update(Request $request, $id)
+    {
+        $unit = Unit::findOrFail($id);
+
+        if ($unit->property->landlord_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'unit_label' => 'sometimes|required|string|max:50',
+            'bedrooms' => 'sometimes|required|integer|min:0',
+            'bathrooms' => 'sometimes|required|integer|min:0',
+            'size_m2' => 'nullable|numeric|min:0',
+            'rent_amount' => 'sometimes|required|numeric|min:0',
+            'deposit_amount' => 'sometimes|required|numeric|min:0',
+            'is_available' => 'boolean',
+            'photos' => 'nullable|array'
+        ]);
+
+        $unit->update(array_merge($validated, [
+            'photos' => isset($validated['photos']) ? json_encode($validated['photos']) : $unit->photos
+        ]));
+
+        return response()->json($unit, 200);
+    }
+
+    // Delete unit
+    public function destroy($id)
+    {
+        $unit = Unit::findOrFail($id);
+
+        if ($unit->property->landlord_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // Check if unit has active leases
+        if ($unit->leases()->where('status', 'active')->exists()) {
+            return response()->json(['message' => 'Cannot delete unit with active leases'], 400);
+        }
+
+        $unit->delete();
+
+        return response()->json(['message' => 'Unit deleted successfully'], 200);
     }
 }

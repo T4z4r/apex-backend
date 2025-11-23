@@ -64,4 +64,51 @@ class PropertyController extends Controller
 
         return response()->json($property, 201);
     }
+
+    // Update property (landlord only)
+    public function update(Request $request, $id)
+    {
+        $property = Property::findOrFail($id);
+
+        if ($property->landlord_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string',
+            'address' => 'sometimes|required|string|max:255',
+            'neighborhood' => 'sometimes|required|string|max:100',
+            'geo_lat' => 'nullable|numeric',
+            'geo_lng' => 'nullable|numeric',
+            'amenities' => 'nullable|array'
+        ]);
+
+        $property->update(array_merge($validated, [
+            'amenities' => isset($validated['amenities']) ? json_encode($validated['amenities']) : $property->amenities
+        ]));
+
+        return response()->json($property, 200);
+    }
+
+    // Delete property (landlord only)
+    public function destroy($id)
+    {
+        $property = Property::findOrFail($id);
+
+        if ($property->landlord_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // Check if property has active leases
+        if ($property->units()->whereHas('leases', function($q) {
+            $q->where('status', 'active');
+        })->exists()) {
+            return response()->json(['message' => 'Cannot delete property with active leases'], 400);
+        }
+
+        $property->delete();
+
+        return response()->json(['message' => 'Property deleted successfully'], 200);
+    }
 }
