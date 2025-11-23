@@ -11,6 +11,8 @@ use App\Http\Controllers\API\AgentController;
 use App\Http\Controllers\API\DisputeController;
 use App\Http\Controllers\API\ConversationController;
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\API\PlanController;
+use App\Http\Controllers\API\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +84,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('conversations/{id}/messages', [MessageController::class, 'store']);
     Route::put('conversations/{id}/messages/{messageId}', [MessageController::class, 'update']);
     Route::delete('conversations/{id}/messages/{messageId}', [MessageController::class, 'destroy']);
+
+    // Plans
+    Route::get('plans', [PlanController::class, 'index']);
+    Route::get('plans/{id}', [PlanController::class, 'show']);
+    Route::post('plans', [PlanController::class, 'store']);
+    Route::put('plans/{id}', [PlanController::class, 'update']);
+    Route::delete('plans/{id}', [PlanController::class, 'destroy']);
+
+    // Subscriptions
+    Route::get('subscriptions', [SubscriptionController::class, 'index']);
+    Route::get('subscriptions/{id}', [SubscriptionController::class, 'show']);
+    Route::post('subscriptions', [SubscriptionController::class, 'store']);
+    Route::put('subscriptions/{id}', [SubscriptionController::class, 'update']);
+    Route::delete('subscriptions/{id}', [SubscriptionController::class, 'destroy']);
 });
 
 

@@ -345,6 +345,82 @@ All API endpoints except authentication require a Bearer token obtained via logi
 - **Endpoint**: `DELETE /api/conversations/{id}/messages/{messageId}`
 - **Response**: Success message
 
+## Plans
+
+### List Plans
+- **Endpoint**: `GET /api/plans`
+- **Response**: Array of active plans
+
+### Get Plan
+- **Endpoint**: `GET /api/plans/{id}`
+- **Response**: Plan object
+
+### Create Plan
+- **Endpoint**: `POST /api/plans`
+- **Body**:
+  ```json
+  {
+    "name": "string",
+    "description": "string (optional)",
+    "monthly_price": "numeric",
+    "yearly_price": "numeric",
+    "max_properties": "integer",
+    "max_units": "integer",
+    "max_users": "integer",
+    "features": "array (optional)",
+    "is_active": "boolean (optional)",
+    "trial_days": "integer (optional)"
+  }
+  ```
+- **Response**: Plan object
+
+### Update Plan
+- **Endpoint**: `PUT /api/plans/{id}`
+- **Body**: Same as create (partial)
+- **Response**: Plan object
+
+### Delete Plan
+- **Endpoint**: `DELETE /api/plans/{id}`
+- **Response**: Success message
+
+## Subscriptions
+
+### List Subscriptions
+- **Endpoint**: `GET /api/subscriptions`
+- **Response**: Array of subscriptions
+
+### Get Subscription
+- **Endpoint**: `GET /api/subscriptions/{id}`
+- **Response**: Subscription object
+
+### Subscribe to Plan
+- **Endpoint**: `POST /api/subscriptions`
+- **Body**:
+  ```json
+  {
+    "plan_id": "integer",
+    "billing_cycle": "monthly|yearly",
+    "tenant_id": "integer (admin only)"
+  }
+  ```
+- **Response**: Subscription object
+
+### Update Subscription
+- **Endpoint**: `PUT /api/subscriptions/{id}`
+- **Body**:
+  ```json
+  {
+    "plan_id": "integer (optional)",
+    "billing_cycle": "monthly|yearly (optional)",
+    "status": "active|expired|cancelled (optional)"
+  }
+  ```
+- **Response**: Subscription object
+
+### Cancel Subscription
+- **Endpoint**: `DELETE /api/subscriptions/{id}`
+- **Response**: Success message
+
 ## Error Responses
 
 All endpoints may return the following error responses:
