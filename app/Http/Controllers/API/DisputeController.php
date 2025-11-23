@@ -81,4 +81,37 @@ class DisputeController extends Controller
 
         return response()->json($dispute, 200);
     }
+
+    // Show single dispute
+    public function show($id)
+    {
+        $dispute = Dispute::with('lease.tenant', 'lease.landlord', 'lease.unit.property')->findOrFail($id);
+        $user = Auth::user();
+
+        // Only involved parties or admin
+        if (!in_array($user->id, [$dispute->lease->tenant_id, $dispute->lease->landlord_id]) && $user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($dispute, 200);
+    }
+
+    // Cancel dispute (only if open, by raiser)
+    public function destroy($id)
+    {
+        $dispute = Dispute::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->id !== $dispute->raised_by) {
+            return response()->json(['message' => 'Only the raiser can cancel dispute'], 403);
+        }
+
+        if ($dispute->status !== 'open') {
+            return response()->json(['message' => 'Cannot cancel resolved or rejected dispute'], 400);
+        }
+
+        $dispute->delete();
+
+        return response()->json(['message' => 'Dispute cancelled'], 200);
+    }
 }

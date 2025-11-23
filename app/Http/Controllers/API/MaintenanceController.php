@@ -93,4 +93,37 @@ class MaintenanceController extends Controller
 
         return response()->json($maintenance, 200);
     }
+
+    // Show single maintenance request
+    public function show($id)
+    {
+        $maintenance = MaintenanceRequest::with('unit.property', 'tenant', 'landlord')->findOrFail($id);
+        $user = Auth::user();
+
+        // Only involved parties
+        if (!in_array($user->id, [$maintenance->tenant_id, $maintenance->landlord_id]) && $user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($maintenance, 200);
+    }
+
+    // Cancel maintenance request (only if open, by tenant)
+    public function destroy($id)
+    {
+        $maintenance = MaintenanceRequest::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->id !== $maintenance->tenant_id) {
+            return response()->json(['message' => 'Only tenant can cancel request'], 403);
+        }
+
+        if ($maintenance->status !== 'open') {
+            return response()->json(['message' => 'Cannot cancel request that is in progress or resolved'], 400);
+        }
+
+        $maintenance->delete();
+
+        return response()->json(['message' => 'Maintenance request cancelled'], 200);
+    }
 }

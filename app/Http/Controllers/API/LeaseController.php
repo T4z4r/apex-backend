@@ -114,4 +114,84 @@ class LeaseController extends Controller
 
         return response()->json(['lease_pdf_url' => $lease->lease_pdf_url], 200);
     }
+
+    // List leases for the authenticated user
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'tenant') {
+            $leases = Lease::where('tenant_id', $user->id)->with('unit.property', 'landlord')->get();
+        } elseif ($user->role === 'landlord') {
+            $leases = Lease::where('landlord_id', $user->id)->with('unit.property', 'tenant')->get();
+        } else {
+            $leases = Lease::with('unit.property', 'tenant', 'landlord')->get();
+        }
+
+        return response()->json($leases, 200);
+    }
+
+    // Update lease (e.g., status, dates if pending)
+    public function update(Request $request, $id)
+    {
+        $lease = Lease::findOrFail($id);
+        $user = Auth::user();
+
+        // Only involved parties or admin
+        if (!in_array($user->id, [$lease->tenant_id, $lease->landlord_id]) && $user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'status' => 'nullable|in:pending,active,terminated',
+            'start_date' => 'nullable|date|after_or_equal:today',
+            'end_date' => 'nullable|date|after:start_date'
+        ]);
+
+        if (isset($validated['status'])) {
+            // Only landlord or admin can change status
+            if ($user->id !== $lease->landlord_id && $user->role !== 'admin') {
+                return response()->json(['message' => 'Only landlord can update status'], 403);
+            }
+            $lease->status = $validated['status'];
+        }
+
+        if (isset($validated['start_date']) || isset($validated['end_date'])) {
+            // Only if pending
+            if ($lease->status !== 'pending') {
+                return response()->json(['message' => 'Cannot update dates after signing'], 400);
+            }
+            if (isset($validated['start_date'])) $lease->start_date = $validated['start_date'];
+            if (isset($validated['end_date'])) $lease->end_date = $validated['end_date'];
+        }
+
+        $lease->save();
+
+        return response()->json($lease, 200);
+    }
+
+    // Cancel/delete lease
+    public function destroy($id)
+    {
+        $lease = Lease::findOrFail($id);
+        $user = Auth::user();
+
+        if (!in_array($user->id, [$lease->tenant_id, $lease->landlord_id]) && $user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        if ($lease->status === 'active') {
+            return response()->json(['message' => 'Cannot cancel active lease'], 400);
+        }
+
+        // Mark unit as available if pending
+        if ($lease->status === 'pending') {
+            $lease->unit->is_available = true;
+            $lease->unit->save();
+        }
+
+        $lease->delete();
+
+        return response()->json(['message' => 'Lease cancelled successfully'], 200);
+    }
 }

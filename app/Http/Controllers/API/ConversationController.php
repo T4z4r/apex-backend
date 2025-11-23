@@ -40,4 +40,54 @@ class ConversationController extends Controller
 
         return response()->json($conversation->load('participants'), 201);
     }
+
+    // Show single conversation
+    public function show($id)
+    {
+        $conversation = Conversation::with(['messages.sender', 'participants'])->findOrFail($id);
+
+        if (!$conversation->participants->contains(Auth::id())) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($conversation, 200);
+    }
+
+    // Update conversation title
+    public function update(Request $request, $id)
+    {
+        $conversation = Conversation::findOrFail($id);
+
+        if (!$conversation->participants->contains(Auth::id())) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255'
+        ]);
+
+        $conversation->update($validated);
+
+        return response()->json($conversation, 200);
+    }
+
+    // Leave or delete conversation
+    public function destroy($id)
+    {
+        $conversation = Conversation::findOrFail($id);
+
+        if (!$conversation->participants->contains(Auth::id())) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // If no messages, delete conversation
+        if ($conversation->messages()->count() === 0) {
+            $conversation->delete();
+            return response()->json(['message' => 'Conversation deleted'], 200);
+        } else {
+            // Otherwise, detach user
+            $conversation->participants()->detach(Auth::id());
+            return response()->json(['message' => 'Left conversation'], 200);
+        }
+    }
 }

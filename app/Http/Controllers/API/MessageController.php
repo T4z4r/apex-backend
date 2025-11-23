@@ -55,4 +55,61 @@ class MessageController extends Controller
 
         return response()->json($conversation->messages, 200);
     }
+
+    // Show single message
+    public function show($conversationId, $messageId)
+    {
+        $message = Message::with('sender')->findOrFail($messageId);
+
+        if ($message->conversation_id != $conversationId) {
+            return response()->json(['message' => 'Message not in conversation'], 404);
+        }
+
+        $conversation = Conversation::findOrFail($conversationId);
+        if (!$conversation->participants->contains(Auth::id())) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($message, 200);
+    }
+
+    // Update message content
+    public function update(Request $request, $conversationId, $messageId)
+    {
+        $message = Message::findOrFail($messageId);
+
+        if ($message->conversation_id != $conversationId) {
+            return response()->json(['message' => 'Message not in conversation'], 404);
+        }
+
+        if ($message->sender_id !== Auth::id()) {
+            return response()->json(['message' => 'Can only edit own messages'], 403);
+        }
+
+        $validated = $request->validate([
+            'content' => 'nullable|string'
+        ]);
+
+        $message->update($validated);
+
+        return response()->json($message, 200);
+    }
+
+    // Delete message
+    public function destroy($conversationId, $messageId)
+    {
+        $message = Message::findOrFail($messageId);
+
+        if ($message->conversation_id != $conversationId) {
+            return response()->json(['message' => 'Message not in conversation'], 404);
+        }
+
+        if ($message->sender_id !== Auth::id()) {
+            return response()->json(['message' => 'Can only delete own messages'], 403);
+        }
+
+        $message->delete();
+
+        return response()->json(['message' => 'Message deleted'], 200);
+    }
 }
