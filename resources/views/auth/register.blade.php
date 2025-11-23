@@ -113,15 +113,69 @@
                   </div>
                 </div>
 
-                <!-- Role -->
+                <!-- Role Selection -->
                 <div class="mb-3">
-                  <label for="role" class="form-label">{{ __('I am registering as') }}</label>
-                  <select id="role" name="role" class="form-select" required>
-                    <option value="">{{ __('Select your role') }}</option>
-                    <option value="landlord" {{ old('role') == 'landlord' ? 'selected' : '' }}>{{ __('Landlord') }}</option>
-                    <option value="tenant" {{ old('role') == 'tenant' ? 'selected' : '' }}>{{ __('Tenant') }}</option>
-                    <option value="agent" {{ old('role') == 'agent' ? 'selected' : '' }}>{{ __('Agent') }}</option>
-                  </select>
+                  <label class="form-label">{{ __('I am registering as') }}</label>
+                  <div class="row">
+                    <div class="col-md mb-md-0 mb-2">
+                      <div class="form-check custom-option custom-option-icon">
+                        <label class="form-check-label custom-option-content" for="customRadioLandlord">
+                          <span class="custom-option-body">
+                            <i class="bx bx-building-house"></i>
+                            <span class="custom-option-title">{{ __('Landlord') }}</span>
+                            <small>{{ __('Manage properties, collect rent, and oversee your real estate portfolio.') }}</small>
+                          </span>
+                          <input
+                            name="role"
+                            class="form-check-input"
+                            type="radio"
+                            value="landlord"
+                            id="customRadioLandlord"
+                            {{ old('role') == 'landlord' ? 'checked' : '' }}
+                            required
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md mb-md-0 mb-2">
+                      <div class="form-check custom-option custom-option-icon">
+                        <label class="form-check-label custom-option-content" for="customRadioTenant">
+                          <span class="custom-option-body">
+                            <i class="bx bx-home"></i>
+                            <span class="custom-option-title">{{ __('Tenant') }}</span>
+                            <small>{{ __('Find and rent properties, manage leases, and track maintenance requests.') }}</small>
+                          </span>
+                          <input
+                            name="role"
+                            class="form-check-input"
+                            type="radio"
+                            value="tenant"
+                            id="customRadioTenant"
+                            {{ old('role') == 'tenant' ? 'checked' : '' }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md mb-md-0 mb-2">
+                      <div class="form-check custom-option custom-option-icon">
+                        <label class="form-check-label custom-option-content" for="customRadioAgent">
+                          <span class="custom-option-body">
+                            <i class="bx bx-briefcase-alt"></i>
+                            <span class="custom-option-title">{{ __('Agent') }}</span>
+                            <small>{{ __('Help clients find properties and earn commissions on successful deals.') }}</small>
+                          </span>
+                          <input
+                            name="role"
+                            class="form-check-input"
+                            type="radio"
+                            value="agent"
+                            id="customRadioAgent"
+                            {{ old('role') == 'agent' ? 'checked' : '' }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                   @error('role') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                 </div>
 
@@ -173,12 +227,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const roleSelect = document.getElementById('role');
+            const roleRadios = document.querySelectorAll('input[name="role"]');
             const planContainer = document.getElementById('plan-selection');
             const planSelect = document.getElementById('plan_id');
 
             function togglePlanSelection() {
-                if (roleSelect.value === 'landlord') {
+                const selectedRole = document.querySelector('input[name="role"]:checked');
+                if (selectedRole && selectedRole.value === 'landlord') {
                     planContainer.style.display = 'block';
                     planSelect.required = true;
                 } else {
@@ -188,9 +243,28 @@
                 }
             }
 
-            roleSelect.addEventListener('change', togglePlanSelection);
+            function updateCheckedState() {
+                // Remove checked class from all options
+                document.querySelectorAll('.custom-option').forEach(option => {
+                    option.classList.remove('checked');
+                });
+
+                // Add checked class to selected option
+                const selectedRadio = document.querySelector('input[name="role"]:checked');
+                if (selectedRadio) {
+                    selectedRadio.closest('.custom-option').classList.add('checked');
+                }
+            }
+
+            roleRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    togglePlanSelection();
+                    updateCheckedState();
+                });
+            });
 
             togglePlanSelection();
+            updateCheckedState();
         });
     </script>
   </body>

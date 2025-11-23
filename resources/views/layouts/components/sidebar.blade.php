@@ -74,6 +74,13 @@
                 <div>{{ __('Dashboard') }}</div>
               </a>
             </li>
+            <!-- Selects Demo -->
+            <li class="menu-item {{ request()->routeIs('selects') ? 'active' : '' }}">
+              <a href="{{ route('selects') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div>{{ __('Select2 Demo') }}</div>
+              </a>
+            </li>
             <!-- Properties -->
             <li class="menu-item {{ request()->routeIs('properties.*') ? 'active' : '' }}">
               <a href="{{ route('properties.index') }}" class="menu-link">

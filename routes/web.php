@@ -27,7 +27,7 @@ use App\Http\Controllers\Web\SubscriptionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
@@ -39,6 +39,9 @@ Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+    Route::get('/selects', function () {
+        return view('selects');
+    })->name('selects');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

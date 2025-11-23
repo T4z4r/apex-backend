@@ -18,7 +18,7 @@
 
         <div class="mb-3">
           <label class="form-label">{{ __('Permissions') }}</label>
-          <select name="permissions[]" class="form-select select2" multiple>
+          <select name="permissions[]" class="form-select" multiple>
             @foreach($permissions as $permission)
               <option value="{{ $permission->id }}">{{ $permission->name }}</option>
             @endforeach
