@@ -126,5 +126,11 @@
     "Database": "Database",
     "API": "API",
     "Storage": "Storage",
-    "Email": "Email"
+    "Email": "Email",
+    "Plans": "Plans",
+    "Subscriptions": "Subscriptions",
+    "Access Control": "Access Control",
+    "Roles": "Roles",
+    "Permissions": "Permissions",
+    "User Roles": "User Roles"
 }

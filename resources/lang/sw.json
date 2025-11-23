@@ -126,5 +126,11 @@
     "Database": "Hifadhidata",
     "API": "API",
     "Storage": "Hifadhi",
-    "Email": "Barua pepe"
+    "Email": "Barua pepe",
+    "Plans": "Mipango",
+    "Subscriptions": "Usajili",
+    "Access Control": "Udhibiti wa Upatikanaji",
+    "Roles": "Majukumu",
+    "Permissions": "Ruhusa",
+    "User Roles": "Majukumu ya Watumiaji"
 }
