@@ -13,6 +13,7 @@ use App\Http\Controllers\API\ConversationController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\PlanController;
 use App\Http\Controllers\API\SubscriptionController;
+use App\Http\Controllers\API\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('subscriptions', [SubscriptionController::class, 'store']);
     Route::put('subscriptions/{id}', [SubscriptionController::class, 'update']);
     Route::delete('subscriptions/{id}', [SubscriptionController::class, 'destroy']);
+
+    // Languages
+    Route::get('languages', [LanguageController::class, 'index']);
+    Route::get('languages/{locale}', [LanguageController::class, 'show']);
+    Route::post('languages/set', [LanguageController::class, 'set']);
 });
 
 

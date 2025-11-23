@@ -421,6 +421,26 @@ All API endpoints except authentication require a Bearer token obtained via logi
 - **Endpoint**: `DELETE /api/subscriptions/{id}`
 - **Response**: Success message
 
+## Languages
+
+### List Available Languages
+- **Endpoint**: `GET /api/languages`
+- **Response**: Array of available languages with codes and names
+
+### Get Language Translations
+- **Endpoint**: `GET /api/languages/{locale}`
+- **Response**: Translations object for the specified locale
+
+### Set User Language
+- **Endpoint**: `POST /api/languages/set`
+- **Body**:
+  ```json
+  {
+    "locale": "en|sw"
+  }
+  ```
+- **Response**: Success message with set locale
+
 ## Error Responses
 
 All endpoints may return the following error responses:
