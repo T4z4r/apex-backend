@@ -14,23 +14,24 @@ class PropertyController extends Controller
     {
         $query = Property::query();
 
-        if ($request->filled('neighborhood')) {
-            $query->where('neighborhood', $request->neighborhood);
-        }
+        // if ($request->filled('neighborhood')) {
+        //     $query->where('neighborhood', $request->neighborhood);
+        // }
 
-        if ($request->filled('price_min')) {
-            $query->whereHas('units', fn($q) => $q->where('rent_amount', '>=', $request->price_min));
-        }
+        // if ($request->filled('price_min')) {
+        //     $query->whereHas('units', fn($q) => $q->where('rent_amount', '>=', $request->price_min));
+        // }
 
-        if ($request->filled('price_max')) {
-            $query->whereHas('units', fn($q) => $q->where('rent_amount', '<=', $request->price_max));
-        }
+        // if ($request->filled('price_max')) {
+        //     $query->whereHas('units', fn($q) => $q->where('rent_amount', '<=', $request->price_max));
+        // }
 
-        if ($request->filled('bedrooms')) {
-            $query->whereHas('units', fn($q) => $q->where('bedrooms', $request->bedrooms));
-        }
+        // if ($request->filled('bedrooms')) {
+        //     $query->whereHas('units', fn($q) => $q->where('bedrooms', $request->bedrooms));
+        // }
 
         $properties = $query->with('units')->get();
+        // dd($properties);
 
         return response()->json($properties, 200);
     }
@@ -45,7 +46,7 @@ class PropertyController extends Controller
     // Create property (landlord only)
     public function store(Request $request)
     {
-        $this->authorize('create', Property::class);
+        // $this->authorize('create', Property::class);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -59,6 +60,7 @@ class PropertyController extends Controller
 
         $property = Property::create(array_merge($validated, [
             'landlord_id' => Auth::id(),
+            'tenant_id'=>Auth::user()->tenant_id??1,
             'amenities' => isset($validated['amenities']) ? json_encode($validated['amenities']) : null
         ]));
 
