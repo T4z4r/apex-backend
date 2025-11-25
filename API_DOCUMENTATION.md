@@ -53,20 +53,20 @@ All API endpoints except authentication require a Bearer token obtained via logi
 - **Body**:
   ```json
   {
-    "title": "string",
+    "title": "string (required)",
     "description": "string (optional)",
-    "address": "string",
-    "neighborhood": "string",
+    "address": "string (required)",
+    "neighborhood": "string (required)",
     "geo_lat": "numeric (optional)",
     "geo_lng": "numeric (optional)",
-    "amenities": "array (optional)"
+    "amenities": "json (optional)"
   }
   ```
 - **Response**: Property object
 
 ### Update Property
 - **Endpoint**: `PUT /api/properties/{id}`
-- **Body**: Same as create (partial)
+- **Body**: Partial update of create fields
 - **Response**: Property object
 
 ### Delete Property
@@ -89,12 +89,12 @@ All API endpoints except authentication require a Bearer token obtained via logi
 - **Body**:
   ```json
   {
-    "unit_label": "string",
-    "bedrooms": "integer",
-    "bathrooms": "integer",
+    "unit_label": "string (required)",
+    "bedrooms": "integer (optional)",
+    "bathrooms": "integer (optional)",
     "size_m2": "numeric (optional)",
-    "rent_amount": "numeric",
-    "deposit_amount": "numeric",
+    "rent_amount": "numeric (required)",
+    "deposit_amount": "numeric (optional)",
     "is_available": "boolean (optional)",
     "photos": "array (optional)"
   }
@@ -103,7 +103,7 @@ All API endpoints except authentication require a Bearer token obtained via logi
 
 ### Update Unit
 - **Endpoint**: `PUT /api/units/{id}`
-- **Body**: Same as create (partial)
+- **Body**: Partial update of create fields
 - **Response**: Unit object
 
 ### Delete Unit
