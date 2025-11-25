@@ -56,13 +56,18 @@ class MaintenanceController extends Controller
     {
         $user = Auth::user();
 
+        $query = MaintenanceRequest::whereHas('unit', function($q) use ($user) {
+            $q->where('tenant_id', $user->tenant_id);
+        });
+
         if ($user->role === 'tenant') {
-            $requests = MaintenanceRequest::where('tenant_id', $user->id)->with('unit.property')->get();
+            $query->where('tenant_id', $user->id);
         } elseif ($user->role === 'landlord') {
-            $requests = MaintenanceRequest::where('landlord_id', $user->id)->with('unit.property')->get();
-        } else {
-            $requests = MaintenanceRequest::with('unit.property')->get();
+            $query->where('landlord_id', $user->id);
         }
+        // For admin, no additional filter
+
+        $requests = $query->with('unit.property')->get();
 
         return response()->json($requests, 200);
     }

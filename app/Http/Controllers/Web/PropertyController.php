@@ -54,7 +54,16 @@ class PropertyController extends Controller
 
     public function update(Request $r, Property $property)
     {
-        $property->update($r->validate(['name' => 'required', 'location' => 'required']));
+        $data = $r->validate([
+            'title' => 'sometimes|required',
+            'description' => 'nullable',
+            'address' => 'sometimes|required',
+            'neighborhood' => 'sometimes|required',
+            'geo_lat' => 'nullable|numeric',
+            'geo_lng' => 'nullable|numeric',
+            'amenities' => 'nullable|json'
+        ]);
+        $property->update($data);
         return back()->with('success', 'Property updated');
     }
 

@@ -36,7 +36,7 @@ class LeaseController extends Controller
 
         $lease = Lease::create([
             'unit_id' => $unit->id,
-            'tenant_id' => Auth::id(),
+            'tenant_id' => Auth::user()->tenant_id,
             'landlord_id' => $unit->property->landlord_id,
             'start_date' => $validated['start_date'],
             'end_date' => $validated['end_date'],
@@ -120,13 +120,16 @@ class LeaseController extends Controller
     {
         $user = Auth::user();
 
+        $query = Lease::where('tenant_id', $user->tenant_id);
+
         if ($user->role === 'tenant') {
-            $leases = Lease::where('tenant_id', $user->id)->with('unit.property', 'landlord')->get();
+            $query->where('tenant_id', $user->id);
         } elseif ($user->role === 'landlord') {
-            $leases = Lease::where('landlord_id', $user->id)->with('unit.property', 'tenant')->get();
-        } else {
-            $leases = Lease::with('unit.property', 'tenant', 'landlord')->get();
+            $query->where('landlord_id', $user->id);
         }
+        // For admin, no additional filter
+
+        $leases = $query->with('unit.property', 'tenantUser', 'landlord')->get();
 
         return response()->json($leases, 200);
     }

@@ -38,7 +38,8 @@ class AgentController extends Controller
             'user_id' => $user->id,
             'agency_name' => $validated['agency_name'],
             'commission_rate' => $validated['commission_rate'] ?? 0,
-            'docs' => $docsUrls ? json_encode($docsUrls) : null
+            'docs' => $docsUrls ? json_encode($docsUrls) : null,
+            'tenant_id' => Auth::user()->tenant_id
         ]);
 
         return response()->json($agent, 201);

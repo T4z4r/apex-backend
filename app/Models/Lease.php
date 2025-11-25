@@ -10,10 +10,6 @@ class Lease extends Model
 {
     use HasFactory;
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new TenantScope);
-    }
 
     protected $fillable = [
         'unit_id',
@@ -32,14 +28,14 @@ class Lease extends Model
         return $this->belongsTo(Tenant::class);
     }
 
+    public function tenantUser()
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
+    }
+
     public function unit()
     {
         return $this->belongsTo(Unit::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'tenant_id');
     }
 
     public function landlord()

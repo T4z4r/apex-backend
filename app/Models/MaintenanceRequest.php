@@ -10,10 +10,6 @@ class MaintenanceRequest extends Model
 {
     use HasFactory;
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new TenantScope);
-    }
 
     protected $fillable = [
         'unit_id',

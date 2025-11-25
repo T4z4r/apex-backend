@@ -43,7 +43,9 @@ class PlanController extends Controller
             'trial_days' => 'nullable|integer|min:0'
         ]);
 
-        $plan = Plan::create($validated);
+        $plan = Plan::create(array_merge($validated, [
+            'tenant_id' => Auth::user()->tenant_id
+        ]));
 
         return response()->json($plan, 201);
     }

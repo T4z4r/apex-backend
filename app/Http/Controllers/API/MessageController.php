@@ -38,7 +38,8 @@ class MessageController extends Controller
             'conversation_id' => $conversation->id,
             'sender_id' => Auth::id(),
             'content' => $validated['content'] ?? '',
-            'attachments' => $attachments ? json_encode($attachments) : null
+            'attachments' => $attachments ? json_encode($attachments) : null,
+            'tenant_id' => Auth::user()->tenant_id
         ]);
 
         return response()->json($message, 201);

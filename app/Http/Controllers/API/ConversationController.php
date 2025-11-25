@@ -31,7 +31,8 @@ class ConversationController extends Controller
         ]);
 
         $conversation = Conversation::create([
-            'title' => $validated['title'] ?? null
+            'title' => $validated['title'] ?? null,
+            'tenant_id' => Auth::user()->tenant_id
         ]);
 
         // Attach participants

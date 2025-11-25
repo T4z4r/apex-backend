@@ -40,7 +40,8 @@ class DisputeController extends Controller
             'raised_by' => Auth::id(),
             'issue' => $validated['issue'],
             'evidence' => $evidenceUrls ? json_encode($evidenceUrls) : null,
-            'status' => 'open'
+            'status' => 'open',
+            'tenant_id' => Auth::user()->tenant_id
         ]);
 
         return response()->json($dispute, 201);

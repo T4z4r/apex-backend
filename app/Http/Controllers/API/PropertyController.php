@@ -46,23 +46,26 @@ class PropertyController extends Controller
     // Create property (landlord only)
     public function store(Request $request)
     {
-        // $this->authorize('create', Property::class);
+        $tenant = Auth::user()->tenant;
+
+        if (!$tenant->canAddProperty()) {
+            return response()->json(['message' => 'You have reached your property limit. Please upgrade your plan.'], 403);
+        }
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'address' => 'required|string|max:255',
-            'neighborhood' => 'required|string|max:100',
+            'title' => 'required',
+            'description' => 'nullable',
+            'address' => 'required',
+            'neighborhood' => 'required',
             'geo_lat' => 'nullable|numeric',
             'geo_lng' => 'nullable|numeric',
-            'amenities' => 'nullable|array'
+            'amenities' => 'nullable|json'
         ]);
 
-        $property = Property::create(array_merge($validated, [
-            'landlord_id' => Auth::id(),
-            'tenant_id'=>Auth::user()->tenant_id??1,
-            'amenities' => isset($validated['amenities']) ? json_encode($validated['amenities']) : null
-        ]));
+        $data = $validated;
+        $data['landlord_id'] = Auth::id();
+        $data['tenant_id'] = Auth::user()->tenant_id;
+        $property = Property::create($data);
 
         return response()->json($property, 201);
     }
@@ -77,13 +80,13 @@ class PropertyController extends Controller
         }
 
         $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'address' => 'sometimes|required|string|max:255',
-            'neighborhood' => 'sometimes|required|string|max:100',
+            'title' => 'sometimes|required',
+            'description' => 'nullable',
+            'address' => 'sometimes|required',
+            'neighborhood' => 'sometimes|required',
             'geo_lat' => 'nullable|numeric',
             'geo_lng' => 'nullable|numeric',
-            'amenities' => 'nullable|array'
+            'amenities' => 'nullable|json'
         ]);
 
         $property->update(array_merge($validated, [

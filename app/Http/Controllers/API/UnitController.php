@@ -50,27 +50,21 @@ class UnitController extends Controller
         }
 
         $validated = $request->validate([
-            'unit_label' => 'required|string|max:50',
-            'bedrooms' => 'required|integer|min:0',
-            'bathrooms' => 'required|integer|min:0',
-            'size_m2' => 'nullable|numeric|min:0',
+            'unit_label' => 'required|string|max:255',
+            'bedrooms' => 'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
+            'size_m2' => 'nullable|numeric',
             'rent_amount' => 'required|numeric|min:0',
-            'deposit_amount' => 'required|numeric|min:0',
-            'is_available' => 'boolean',
+            'deposit_amount' => 'nullable|numeric|min:0',
+            'is_available' => 'nullable|boolean',
             'photos' => 'nullable|array'
         ]);
 
-        $unit = Unit::create([
-            'property_id' => $property->id,
-            'unit_label' => $validated['unit_label'],
-            'bedrooms' => $validated['bedrooms'],
-            'bathrooms' => $validated['bathrooms'],
-            'size_m2' => $validated['size_m2'] ?? null,
-            'rent_amount' => $validated['rent_amount'],
-            'deposit_amount' => $validated['deposit_amount'],
-            'is_available' => $validated['is_available'] ?? true,
-            'photos' => isset($validated['photos']) ? json_encode($validated['photos']) : null
-        ]);
+        $data = $validated;
+        $data['property_id'] = $property->id;
+        $data['tenant_id'] = $property->tenant_id;
+        $data['is_available'] = isset($validated['is_available']) ? (bool)$validated['is_available'] : true;
+        $unit = Unit::create($data);
 
         return response()->json($unit, 201);
     }
@@ -85,19 +79,21 @@ class UnitController extends Controller
         }
 
         $validated = $request->validate([
-            'unit_label' => 'sometimes|required|string|max:50',
-            'bedrooms' => 'sometimes|required|integer|min:0',
-            'bathrooms' => 'sometimes|required|integer|min:0',
-            'size_m2' => 'nullable|numeric|min:0',
+            'unit_label' => 'sometimes|required|string|max:255',
+            'bedrooms' => 'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
+            'size_m2' => 'nullable|numeric',
             'rent_amount' => 'sometimes|required|numeric|min:0',
-            'deposit_amount' => 'sometimes|required|numeric|min:0',
-            'is_available' => 'boolean',
+            'deposit_amount' => 'nullable|numeric|min:0',
+            'is_available' => 'nullable|boolean',
             'photos' => 'nullable|array'
         ]);
 
-        $unit->update(array_merge($validated, [
-            'photos' => isset($validated['photos']) ? json_encode($validated['photos']) : $unit->photos
-        ]));
+        $data = $validated;
+        if (isset($validated['is_available'])) {
+            $data['is_available'] = (bool)$validated['is_available'];
+        }
+        $unit->update($data);
 
         return response()->json($unit, 200);
     }
