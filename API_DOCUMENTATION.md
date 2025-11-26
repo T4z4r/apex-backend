@@ -2,6 +2,8 @@
 
 This document provides comprehensive documentation for the Apex Property Management API endpoints.
 
+**Note**: For admin-specific endpoints (user management, roles, permissions, tenant management, payment oversight), please refer to [ADMIN_API_DOCUMENTATION.md](ADMIN_API_DOCUMENTATION.md). These endpoints require admin role permissions.
+
 ## Authentication
 
 All API endpoints except authentication require a Bearer token obtained via login.

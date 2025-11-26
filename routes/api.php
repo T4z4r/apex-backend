@@ -14,6 +14,15 @@ use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\PlanController;
 use App\Http\Controllers\API\SubscriptionController;
 use App\Http\Controllers\API\LanguageController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\TenantController;
+use App\Http\Controllers\API\AdminPaymentController;
+use App\Http\Controllers\API\AdminDashboardController;
+use App\Http\Controllers\API\AdminAgentController;
+use App\Http\Controllers\API\AdminDisputeController;
+use App\Http\Controllers\API\AdminPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +113,81 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('languages', [LanguageController::class, 'index']);
     Route::get('languages/{locale}', [LanguageController::class, 'show']);
     Route::post('languages/set', [LanguageController::class, 'set']);
+});
+
+// Admin Routes (Super Admin only)
+Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
+    // Dashboard
+    Route::get('dashboard/overview', [AdminDashboardController::class, 'overview']);
+    Route::get('dashboard/analytics', [AdminDashboardController::class, 'analytics']);
+    Route::get('dashboard/recent-activity', [AdminDashboardController::class, 'recentActivity']);
+    Route::get('dashboard/tenants', [AdminDashboardController::class, 'tenantOverview']);
+
+    // User Management
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::get('users/{id}', [UserController::class, 'show']);
+    Route::put('users/{id}', [UserController::class, 'update']);
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
+    Route::post('users/{id}/assign-role', [UserController::class, 'assignRole']);
+    Route::post('users/{id}/remove-role', [UserController::class, 'removeRole']);
+
+    // Role Management
+    Route::get('roles', [RoleController::class, 'index']);
+    Route::post('roles', [RoleController::class, 'store']);
+    Route::get('roles/{id}', [RoleController::class, 'show']);
+    Route::put('roles/{id}', [RoleController::class, 'update']);
+    Route::delete('roles/{id}', [RoleController::class, 'destroy']);
+    Route::post('roles/{id}/assign-permission', [RoleController::class, 'assignPermission']);
+    Route::post('roles/{id}/remove-permission', [RoleController::class, 'removePermission']);
+
+    // Permission Management
+    Route::get('permissions', [PermissionController::class, 'index']);
+    Route::post('permissions', [PermissionController::class, 'store']);
+    Route::get('permissions/{id}', [PermissionController::class, 'show']);
+    Route::put('permissions/{id}', [PermissionController::class, 'update']);
+    Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
+
+    // Tenant Management
+    Route::get('tenants', [TenantController::class, 'index']);
+    Route::post('tenants', [TenantController::class, 'store']);
+    Route::get('tenants/{id}', [TenantController::class, 'show']);
+    Route::put('tenants/{id}', [TenantController::class, 'update']);
+    Route::delete('tenants/{id}', [TenantController::class, 'destroy']);
+    Route::get('tenants/{id}/stats', [TenantController::class, 'stats']);
+
+    // Payment Management
+    Route::get('payments', [AdminPaymentController::class, 'index']);
+    Route::get('payments/{id}', [AdminPaymentController::class, 'show']);
+    Route::put('payments/{id}', [AdminPaymentController::class, 'update']);
+    Route::get('payments/stats', [AdminPaymentController::class, 'stats']);
+
+    // Agent Management
+    Route::get('agents', [AdminAgentController::class, 'index']);
+    Route::get('agents/{id}', [AdminAgentController::class, 'show']);
+    Route::put('agents/{id}', [AdminAgentController::class, 'update']);
+    Route::delete('agents/{id}', [AdminAgentController::class, 'destroy']);
+    Route::post('agents/{id}/verify', [AdminAgentController::class, 'verify']);
+    Route::post('agents/{id}/unverify', [AdminAgentController::class, 'unverify']);
+    Route::get('agents/stats', [AdminAgentController::class, 'stats']);
+
+    // Dispute Management
+    Route::get('disputes', [AdminDisputeController::class, 'index']);
+    Route::get('disputes/{id}', [AdminDisputeController::class, 'show']);
+    Route::put('disputes/{id}', [AdminDisputeController::class, 'update']);
+    Route::post('disputes/{id}/assign', [AdminDisputeController::class, 'assignToAdmin']);
+    Route::post('disputes/bulk-update', [AdminDisputeController::class, 'bulkUpdate']);
+    Route::get('disputes/stats', [AdminDisputeController::class, 'stats']);
+
+    // Plan Management
+    Route::get('plans', [AdminPlanController::class, 'index']);
+    Route::post('plans', [AdminPlanController::class, 'store']);
+    Route::get('plans/{id}', [AdminPlanController::class, 'show']);
+    Route::put('plans/{id}', [AdminPlanController::class, 'update']);
+    Route::delete('plans/{id}', [AdminPlanController::class, 'destroy']);
+    Route::post('plans/{id}/toggle', [AdminPlanController::class, 'toggleActive']);
+    Route::post('plans/{id}/duplicate', [AdminPlanController::class, 'duplicate']);
+    Route::get('plans/stats', [AdminPlanController::class, 'stats']);
 });
 
 
