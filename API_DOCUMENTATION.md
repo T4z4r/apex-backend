@@ -16,7 +16,7 @@ All API endpoints except authentication require a Bearer token obtained via logi
     "email": "string (optional)",
     "password": "string",
     "password_confirmation": "string",
-    "role": "tenant|landlord|agent|admin"
+    "role": "tenant|landlord|agent"
   }
   ```
 - **Response**: User object with token
