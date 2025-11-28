@@ -25,8 +25,8 @@
                 src="/assets/img/illustrations/man-with-laptop-light.png"
                 height="140"
                 alt="Property Management"
-                data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                data-app-light-img="illustrations/man-with-laptop-light.png"
+                data-app-dark-img="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
+                data-app-light-img="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
               />
             </div>
           </div>
