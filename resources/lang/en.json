@@ -132,5 +132,7 @@
     "Access Control": "Access Control",
     "Roles": "Roles",
     "Permissions": "Permissions",
-    "User Roles": "User Roles"
+    "Users": "Users",
+    "Add User": "Add User",
+    "Max Users": "Max Users"
 }

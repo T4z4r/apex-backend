@@ -132,5 +132,7 @@
     "Access Control": "Udhibiti wa Upatikanaji",
     "Roles": "Majukumu",
     "Permissions": "Ruhusa",
-    "User Roles": "Majukumu ya Watumiaji"
+    "Users": "Watumiaji",
+    "Add User": "Ongeza Mtumiaji",
+    "Max Users": "Watumiaji Wengi Zaidi"
 }

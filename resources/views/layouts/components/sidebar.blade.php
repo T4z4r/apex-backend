@@ -149,7 +149,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="{{ route('users.index') }}" class="menu-link">
-                    <div>{{ __('User Roles') }}</div>
+                    <div>{{ __('Users') }}</div>
                   </a>
                 </li>
               </ul>
