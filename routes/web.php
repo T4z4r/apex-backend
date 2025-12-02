@@ -30,6 +30,14 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+})->name('privacy.policy');
+
+Route::get('/terms-of-service', function () {
+    return view('terms-of-service');
+})->name('terms.of.service');
+
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 // Route::get('/dashboard', function () {
@@ -70,6 +78,7 @@ Route::resource('roles', RoleController::class);
 Route::resource('permissions', PermissionController::class);
 Route::resource('plans', PlanController::class);
 Route::resource('subscriptions', SubscriptionController::class);
+Route::resource('policies', \App\Http\Controllers\Web\PolicyController::class);
 });
 });
 

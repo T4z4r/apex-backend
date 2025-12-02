@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'in:landlord,tenant,agent'],
             'plan_id' => ['required_if:role,landlord', 'exists:plans,id'],
+            'terms' => ['required', 'accepted'],
         ]);
 
         $tenantId = 1; // Default for non-landlords

@@ -199,9 +199,10 @@
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms"/>
                     <label class="form-check-label" for="terms-conditions">
-                      {{ __('I agree to') }} <a href="#">{{ __('privacy policy & terms') }}</a>
+                      {{ __('I agree to') }} <a href="{{ route('privacy.policy') }}" target="_blank">{{ __('privacy policy') }}</a> {{ __('and') }} <a href="{{ route('terms.of.service') }}" target="_blank">{{ __('terms of service') }}</a>
                     </label>
                   </div>
+                  @error('terms') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                 </div>
 
                 <button class="btn btn-primary d-grid w-100">{{ __('Sign up') }}</button>
@@ -212,7 +213,7 @@
                 <a href="{{ route('login') }}"><span>{{ __('Sign in instead') }}</span></a>
               </p>
 
-            
+
 
             </div>
           </div>

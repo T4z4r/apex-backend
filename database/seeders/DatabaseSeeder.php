@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             DisputeSeeder::class,
             ConversationSeeder::class,
             MessageSeeder::class,
+            PolicySeeder::class,
         ]);
     }
 }
