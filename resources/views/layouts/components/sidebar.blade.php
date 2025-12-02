@@ -130,6 +130,13 @@
                 <div>{{ __('Subscriptions') }}</div>
               </a>
             </li>
+            <!-- Policies -->
+            <li class="menu-item {{ request()->routeIs('policies.*') ? 'active' : '' }}">
+              <a href="{{ route('policies.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file-blank"></i>
+                <div>{{ __('Policies') }}</div>
+              </a>
+            </li>
             <!-- Access Management -->
             <li class="menu-item {{ request()->routeIs('roles.*') || request()->routeIs('permissions.*') || request()->routeIs('users.*') ? 'active' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
