@@ -23,6 +23,7 @@ use App\Http\Controllers\API\AdminDashboardController;
 use App\Http\Controllers\API\AdminAgentController;
 use App\Http\Controllers\API\AdminDisputeController;
 use App\Http\Controllers\API\AdminPlanController;
+use App\Http\Controllers\API\PolicyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +114,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('languages', [LanguageController::class, 'index']);
     Route::get('languages/{locale}', [LanguageController::class, 'show']);
     Route::post('languages/set', [LanguageController::class, 'set']);
+
+    // Policies (Public - get active policies)
+    Route::get('policies/{type}', [PolicyController::class, 'getByType']);
 });
 
 // Admin Routes (Super Admin only)
@@ -188,6 +192,13 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     Route::post('plans/{id}/toggle', [AdminPlanController::class, 'toggleActive']);
     Route::post('plans/{id}/duplicate', [AdminPlanController::class, 'duplicate']);
     Route::get('plans/stats', [AdminPlanController::class, 'stats']);
+
+    // Policy Management
+    Route::get('policies', [PolicyController::class, 'index']);
+    Route::post('policies', [PolicyController::class, 'store']);
+    Route::get('policies/{id}', [PolicyController::class, 'show']);
+    Route::put('policies/{id}', [PolicyController::class, 'update']);
+    Route::delete('policies/{id}', [PolicyController::class, 'destroy']);
 });
 
 

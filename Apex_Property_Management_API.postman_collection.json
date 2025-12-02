@@ -1863,6 +1863,2005 @@
           }
         }
       ]
+    },
+    {
+      "name": "Policies",
+      "item": [
+        {
+          "name": "List Policies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Policy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Policy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"privacy_policy\",\n  \"title\": \"Privacy Policy\",\n  \"content\": \"<h1>Privacy Policy</h1><p>This is our privacy policy content...</p>\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Policy",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Privacy Policy\",\n  \"content\": \"<h1>Updated Privacy Policy</h1><p>Updated content...</p>\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Policy",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Active Privacy Policy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies/privacy-policy",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "privacy-policy"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Active Terms of Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies/terms-of-service",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "terms-of-service"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Overview",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard/overview",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard",
+                "overview"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Dashboard Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard/analytics",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard",
+                "analytics"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Recent Activity",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard/recent-activity",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard",
+                "recent-activity"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Tenant Overview",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard/tenants",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard",
+                "tenants"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin User Management",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Admin\",\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Assign Role to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/1/assign-role",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                "1",
+                "assign-role"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remove Role from User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/1/remove-role",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                "1",
+                "remove-role"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Role Management",
+      "item": [
+        {
+          "name": "List Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/roles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"manager\",\n  \"display_name\": \"Manager\",\n  \"description\": \"Property Manager Role\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/roles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Role",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/roles/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"Updated Manager\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/roles/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/roles/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Assign Permission to Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"permission_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/roles/1/assign-permission",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles",
+                "1",
+                "assign-permission"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remove Permission from Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"permission_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/roles/1/remove-permission",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "roles",
+                "1",
+                "remove-permission"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Permission Management",
+      "item": [
+        {
+          "name": "List Permissions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/permissions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "permissions"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Permission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"manage_properties\",\n  \"display_name\": \"Manage Properties\",\n  \"description\": \"Can create, update, and delete properties\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/permissions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "permissions"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Permission",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/permissions/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "permissions",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Permission",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"Updated Permission\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/permissions/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "permissions",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Permission",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/permissions/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "permissions",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Tenant Management",
+      "item": [
+        {
+          "name": "List Tenants",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/tenants",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Tenant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"ABC Realty\",\n  \"domain\": \"abc-realty\",\n  \"database\": \"tenant_abc\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/tenants",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Tenant",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/tenants/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Tenant",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Realty\",\n  \"domain\": \"updated-realty\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/tenants/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Tenant",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/tenants/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Tenant Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/tenants/1/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "tenants",
+                "1",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Payment Management",
+      "item": [
+        {
+          "name": "List Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "payments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/payments/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "payments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Payment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"notes\": \"Payment processed successfully\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/payments/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "payments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/payments/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "payments",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Agent Management",
+      "item": [
+        {
+          "name": "List Agents",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Agent",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Agent",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"commission_rate\": 6.5,\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/agents/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Agent",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Agent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents/1/verify",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "1",
+                "verify"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Unverify Agent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents/1/unverify",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "1",
+                "unverify"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Agent Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/agents/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "agents",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Dispute Management",
+      "item": [
+        {
+          "name": "List Disputes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/disputes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Dispute",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/disputes/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Dispute",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"resolved\",\n  \"admin_resolution_notes\": \"Issue resolved successfully\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/disputes/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Assign Dispute to Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"admin_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/disputes/1/assign",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes",
+                "1",
+                "assign"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Bulk Update Disputes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dispute_ids\": [1, 2, 3],\n  \"status\": \"resolved\",\n  \"admin_resolution_notes\": \"Bulk resolution\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/disputes/bulk-update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes",
+                "bulk-update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Dispute Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/disputes/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "disputes",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Plan Management",
+      "item": [
+        {
+          "name": "List Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Premium Plan\",\n  \"description\": \"Premium features\",\n  \"monthly_price\": 49.99,\n  \"yearly_price\": 499.99,\n  \"max_properties\": 50,\n  \"max_units\": 200,\n  \"max_users\": 100,\n  \"features\": [\"premium_support\", \"advanced_analytics\"],\n  \"is_active\": true,\n  \"trial_days\": 30\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/plans",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Plan",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Plan",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"monthly_price\": 59.99,\n  \"description\": \"Updated premium features\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/plans/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Plan",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Toggle Plan Active Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans/1/toggle",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "1",
+                "toggle"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Duplicate Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans/1/duplicate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "1",
+                "duplicate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Plan Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/plans/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "plans",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Policy Management",
+      "item": [
+        {
+          "name": "List Policies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "policies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Policy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"privacy_policy\",\n  \"title\": \"Privacy Policy\",\n  \"content\": \"<h1>Privacy Policy</h1><p>This is our privacy policy content...</p>\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "policies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Policy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "policies",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Policy",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Privacy Policy\",\n  \"content\": \"<h1>Updated Privacy Policy</h1><p>Updated content...</p>\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "policies",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Policy",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "policies",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }
