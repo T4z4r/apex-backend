@@ -199,7 +199,7 @@
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms"/>
                     <label class="form-check-label" for="terms-conditions">
-                      {{ __('I agree to') }} <a href="{{ route('privacy.policy') }}" target="_blank">{{ __('privacy policy') }}</a> {{ __('and') }} <a href="{{ route('terms.of.service') }}" target="_blank">{{ __('terms of service') }}</a>
+                      {{ __('I agree to') }} <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">{{ __('privacy policy') }}</a> {{ __('and') }} <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">{{ __('terms of service') }}</a>
                     </label>
                   </div>
                   @error('terms') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
@@ -268,5 +268,63 @@
             updateCheckedState();
         });
     </script>
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            @php
+                $policy = \App\Models\Policy::where('type', 'privacy_policy')->active()->first();
+            @endphp
+
+            @if($policy)
+                <p class="text-muted">Last updated: {{ $policy->updated_at->format('F j, Y') }}</p>
+
+                <div class="policy-content">
+                    {!! $policy->content !!}
+                </div>
+            @else
+                <p>Privacy policy content is being updated. Please check back later.</p>
+            @endif
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Terms of Service Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            @php
+                $policy = \App\Models\Policy::where('type', 'terms_of_service')->active()->first();
+            @endphp
+
+            @if($policy)
+                <p class="text-muted">Last updated: {{ $policy->updated_at->format('F j, Y') }}</p>
+
+                <div class="policy-content">
+                    {!! $policy->content !!}
+                </div>
+            @else
+                <p>Terms of service content is being updated. Please check back later.</p>
+            @endif
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
