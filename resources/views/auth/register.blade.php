@@ -92,6 +92,15 @@
                   </div>
                 </div>
 
+                <!-- Phone Row -->
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">{{ __('Phone Number') }}</label>
+                    <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="{{ __('Enter your phone number') }}"/>
+                    @error('phone') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                  </div>
+                </div>
+
                 <!-- Password and Confirm Password Row -->
                 <div class="row">
                   <div class="col-md-6 mb-3 form-password-toggle">
